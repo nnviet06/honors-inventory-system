@@ -5,7 +5,7 @@ import SearchBar from './components/layout/SearchBar'
 import EquipTable from './components/layout/EquipTable'
 //import AddNew from './components/modals/AddNew'
 //import LocChange from './components/modals/LocChange'
-import Location from './components/layout/Location'
+//import Location from './components/layout/Location'
 
 
 function App() {
