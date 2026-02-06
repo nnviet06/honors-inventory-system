@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import styles from './EquipTable.module.css';
-import LocChange from '../modals/LocChange';
+import EditEquipment from '../modals/EditEquipment';
 
 interface Equipment {
   id: number;
@@ -11,10 +11,14 @@ interface Equipment {
   building_type: string;
 }
 
+interface EquipTableProps {
+  refreshKey: number;
+}
+
 const EquipTable = ({ refreshKey }: EquipTableProps) => {
   const [equipmentList, setEquipmentList] = useState<Equipment[]>([]);
   const [selectedItem, setSelectedItem] = useState<Equipment | null>(null);
-  const [showLocChangeModal, setShowLocChangeModal] = useState(false);
+  const [showEditEquipmentModal, setShowEditEquipmentModal] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -44,7 +48,7 @@ const EquipTable = ({ refreshKey }: EquipTableProps) => {
 
   const handleEdit = (item: Equipment) => {
     setSelectedItem(item);
-    setShowLocChangeModal(true);
+    setShowEditEquipmentModal(true);
   };
 
   const handleDelete = async (id: number, model: string) => {
@@ -71,7 +75,7 @@ const EquipTable = ({ refreshKey }: EquipTableProps) => {
   };
 
   const handleModalClose = () => {
-    setShowLocChangeModal(false);
+    setShowEditEquipmentModal(false);
     setSelectedItem(null);
     fetchEquipment();
   };
@@ -150,8 +154,8 @@ const EquipTable = ({ refreshKey }: EquipTableProps) => {
         </div>
       </div>
 
-      {showLocChangeModal && selectedItem && (
-        <LocChange
+      {showEditEquipmentModal && selectedItem && (
+        <EditEquipment
           item={selectedItem}
           onClose={handleModalClose}
         />

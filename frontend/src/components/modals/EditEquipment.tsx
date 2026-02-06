@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import styles from './LocChange.module.css';
+import styles from './EditEquipment.module.css';
 
 interface Equipment {
     id: number;
@@ -16,12 +16,12 @@ interface Location {
     building_type: string;
 }
 
-interface LocChangeProps {
+interface EditEquipmentProps {
     item: Equipment;
     onClose: () => void;
 }
 
-const LocChange = ({ item, onClose }: LocChangeProps) => {
+const EditEquipment = ({ item, onClose }: EditEquipmentProps) => {
     const [newLocationId, setNewLocationId] = useState(item.location_id);
     const [locations, setLocations] = useState<Location[]>([]);
     const [loading, setLoading] = useState(false);
@@ -116,4 +116,4 @@ const LocChange = ({ item, onClose }: LocChangeProps) => {
     );
 };
 
-export default LocChange;
+export default EditEquipment;
