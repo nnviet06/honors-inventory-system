@@ -66,6 +66,10 @@ export const getAllLocations = () => {
     return db.prepare('SELECT id, room_name, building_type FROM locations ORDER BY id').all();
 };
 
+export const getAllTypes = () => {
+    return db.prepare('SELECT DISTINCT equipment_type FROM equipment ORDER BY equipment_type').all();
+};
+
 export const createEquipment = (model: string, equipment_type: string, location_id: number) => {
     const query = `
         INSERT INTO equipment (model, equipment_type, location_id)

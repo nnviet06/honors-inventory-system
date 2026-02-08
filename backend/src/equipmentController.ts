@@ -36,6 +36,16 @@ export const getAllLocations = (req: Request, res: Response) => {
     }
 };
 
+// Get equipment types
+export const getAllTypes = (req: Request, res: Response) => {
+    try {
+        const types = db.getAllTypes();
+        res.json(types);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to fetch equipment types' });
+    }
+};
+
 // Post new equipment
 export const createEquipment = (req: Request, res: Response) => {
     try {

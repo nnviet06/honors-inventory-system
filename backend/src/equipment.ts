@@ -7,6 +7,8 @@ router.get('/equipment', controller.getAllEquipment);
 
 router.get('/equipment/:id', controller.getEquipmentById);
 
+router.get('/types', controller.getAllTypes);
+
 router.get('/locations', controller.getAllLocations);
 
 router.post('/equipment', controller.createEquipment);
