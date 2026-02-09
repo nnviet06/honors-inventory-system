@@ -11,6 +11,7 @@ function App() {
         <div className={styles.app}>
             <NavBar />  
             <Routes>
+                <Route path="/" element={<ItemsView/>} />
                 <Route path="/items" element={<ItemsView/>} />
                 <Route path="/locations" element={<LocationsView/>} />
             </Routes>
