@@ -1,0 +1,1 @@
+Form to edit the equipment details
