@@ -67,7 +67,8 @@ export const getAllLocations = () => {
 };
 
 export const getAllTypes = () => {
-    return db.prepare('SELECT DISTINCT equipment_type FROM equipment ORDER BY equipment_type').all();
+    const rows = db.prepare('SELECT DISTINCT equipment_type FROM equipment ORDER BY equipment_type').all() as Array<{ equipment_type: string }>;
+    return rows.map(row => row.equipment_type);
 };
 
 export const createEquipment = (model: string, equipment_type: string, location_id: number) => {
@@ -78,13 +79,13 @@ export const createEquipment = (model: string, equipment_type: string, location_
     return db.prepare(query).run(model, equipment_type, location_id);
 };
 
-export const updateEquipmentLocation = (id: number, location_id: number) => {
+export const updateEquipment = (id: number, location_id: number, model: string, equipment_type: string) => {
     const query = `
         UPDATE equipment 
-        SET location_id = ?, updated_at = CURRENT_TIMESTAMP
+        SET model = ?, equipment_type = ?, location_id = ?, updated_at = CURRENT_TIMESTAMP
         WHERE id = ?
     `;
-    return db.prepare(query).run(location_id, id);
+    return db.prepare(query).run(model, equipment_type, location_id, id);
 };
 
 export const deleteEquipment = (id: number) => {

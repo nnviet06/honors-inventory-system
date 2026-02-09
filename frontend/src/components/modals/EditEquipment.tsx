@@ -91,7 +91,7 @@ const EditEquipment = ({ item, onClose }: EditEquipmentProps) => {
                 <form onSubmit={handleSubmit}>
                     <div className={styles.formGroup}>
                         {/* Edit Model */}
-                        <label>New Model:</label>    
+                        <label>Edit Model Name:</label>    
                         <input
                             type="text"
                             value={newModel}
@@ -101,7 +101,7 @@ const EditEquipment = ({ item, onClose }: EditEquipmentProps) => {
                     </div>
                     <div className={styles.formGroup}>
                         {/* Edit Type */}
-                        <label>New Type:</label>
+                        <label>Edit Type:</label>
                         <select
                             value={newType}
                             onChange={(e) => setNewType(e.target.value)}

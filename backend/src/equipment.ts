@@ -13,7 +13,7 @@ router.get('/locations', controller.getAllLocations);
 
 router.post('/equipment', controller.createEquipment);
 
-router.put('/equipment/:id', controller.updateEquipmentLocation);
+router.put('/equipment/:id', controller.updateEquipment);
 
 router.delete('/equipment/:id', controller.deleteEquipment);
 
