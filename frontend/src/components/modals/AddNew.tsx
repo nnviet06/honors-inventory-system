@@ -4,6 +4,7 @@ import styles from './AddNew.module.css';
 interface AddNewProps {
     onClose: () => void;
     onSuccess: () => void;
+    locations?: Location[];
 }
 
 interface Location {
@@ -12,7 +13,7 @@ interface Location {
     building_type: string;
 }
 
-const AddNew = ({ onClose, onSuccess }: AddNewProps) => {
+const AddNew = ({ onClose, onSuccess, locations: propLocations }: AddNewProps) => {
     const [model, setModel] = useState('');
     const [equipmentType, setEquipmentType] = useState('');
     const [locationId, setLocationId] = useState(0);
@@ -21,11 +22,15 @@ const AddNew = ({ onClose, onSuccess }: AddNewProps) => {
     const [error, setError] = useState('');
 
     useEffect(() => {
-        fetch('http://localhost:5000/api/locations')
-            .then(res => res.json())
-            .then(data => setLocations(data))
-            .catch(() => setError('Failed to load locations'));
-    }, []);
+        if (propLocations) {
+            setLocations(propLocations);  
+        } else {
+            fetch('http://localhost:5000/api/locations')  
+                .then(res => res.json())
+                .then(data => setLocations(data))
+                .catch(() => setError('Failed to load locations'));
+        }
+    }, [propLocations]); 
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
