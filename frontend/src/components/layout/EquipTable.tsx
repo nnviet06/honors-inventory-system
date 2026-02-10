@@ -14,9 +14,10 @@ interface Equipment {
 interface EquipTableProps {
   refreshKey: number;
   selectedType: string;
+  selectedLocation: string;
 }
 
-const EquipTable = ({ refreshKey, selectedType }: EquipTableProps) => {
+const EquipTable = ({ refreshKey, selectedType, selectedLocation }: EquipTableProps) => {
   const [equipmentList, setEquipmentList] = useState<Equipment[]>([]);
   const [selectedItem, setSelectedItem] = useState<Equipment | null>(null);
   const [showEditEquipmentModal, setShowEditEquipmentModal] = useState(false);
@@ -101,9 +102,11 @@ const EquipTable = ({ refreshKey, selectedType }: EquipTableProps) => {
     );
   }
 
-  const filteredEquipment = selectedType === 'All' 
-    ? equipmentList 
-    : equipmentList.filter(item => item.equipment_type === selectedType);
+  const filteredEquipment = equipmentList.filter(item => {
+      const typeMatch = selectedType === 'All' || item.equipment_type === selectedType;
+      const locationMatch = selectedLocation === 'All' || item.room_name === selectedLocation;
+      return typeMatch && locationMatch;
+  });
 
   return (
     <>

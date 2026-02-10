@@ -3,10 +3,13 @@ import styles from './SearchBar.module.css';
 import AddNew from '../modals/AddNew';
 import Filter from '../modals/Filter';
 
-const SearchBar = ({ onRefresh, onFilterChange, selectedType }: { 
+const SearchBar = ({ onRefresh, onTypeChange, selectedType, selectedLocation, onLocationChange, refreshKey }: { 
     onRefresh: () => void;
-    onFilterChange: (type: string) => void;
+    onTypeChange: (type: string) => void;
+    onLocationChange: (location: string) => void;
     selectedType: string;
+    selectedLocation: string;
+    refreshKey: number;
 }) => {   
     // Three main components: Search button, Filter button, and Add New button
     const [query, setQuery] = useState<string>('');
@@ -23,13 +26,21 @@ const SearchBar = ({ onRefresh, onFilterChange, selectedType }: {
         setShowAddNewModal(false);  
     };
 const [equipmentTypes, setEquipmentTypes] = useState<string[]>(['All']);
-
+const [locations, setLocations] = useState<string[]>(['All']);
+// Fetch equipment types for filter dropdown
 useEffect(() => {
         fetch('http://localhost:5000/api/types')
             .then(res => res.json())
             .then(data => setEquipmentTypes(['All', ...data])) 
             .catch(err => console.error('Failed to load types:', err));
-    }, []);
+    }, [refreshKey]);
+// Fetch locations for filter dropdown
+useEffect(() => {
+    fetch('http://localhost:5000/api/locations')
+        .then(res => res.json())
+        .then(data => setLocations(['All', ...data.map((loc: {room_name: string}) => loc.room_name)]))
+        .catch(err => console.error('Failed to load locations:', err));
+}, [refreshKey]);
     return (
         <>
         <div className={styles.searchBar}>  
@@ -48,9 +59,15 @@ useEffect(() => {
             {isFilterOpen && (
                 <Filter 
                     equipmentTypes={equipmentTypes}
+                    locations={locations}
                     selectedType={selectedType}
-                    onFilterChange={(type) => {
-                        onFilterChange(type);
+                    selectedLocation={selectedLocation}
+                    onTypeChange={(type) => {
+                        onTypeChange(type);
+                        setIsFilterOpen(false);
+                    }}
+                    onLocationChange={(location) => {
+                        onLocationChange(location);
                         setIsFilterOpen(false);
                     }}
                 />
