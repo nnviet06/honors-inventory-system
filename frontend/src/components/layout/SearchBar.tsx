@@ -1,8 +1,13 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import styles from './SearchBar.module.css';
 import AddNew from '../modals/AddNew';
+import Filter from '../modals/Filter';
 
-const SearchBar = ({ onRefresh }: { onRefresh: () => void }) => {    
+const SearchBar = ({ onRefresh, onFilterChange, selectedType }: { 
+    onRefresh: () => void;
+    onFilterChange: (type: string) => void;
+    selectedType: string;
+}) => {   
     // Three main components: Search button, Filter button, and Add New button
     const [query, setQuery] = useState<string>('');
     const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
@@ -17,7 +22,14 @@ const SearchBar = ({ onRefresh }: { onRefresh: () => void }) => {
     const handleCloseModal = () => {
         setShowAddNewModal(false);  
     };
+const [equipmentTypes, setEquipmentTypes] = useState<string[]>(['All']);
 
+useEffect(() => {
+        fetch('http://localhost:5000/api/types')
+            .then(res => res.json())
+            .then(data => setEquipmentTypes(['All', ...data])) 
+            .catch(err => console.error('Failed to load types:', err));
+    }, []);
     return (
         <>
         <div className={styles.searchBar}>  
@@ -34,9 +46,14 @@ const SearchBar = ({ onRefresh }: { onRefresh: () => void }) => {
                 Filter 
             </button>
             {isFilterOpen && (
-                <div className={styles.filterDropdown}> 
-                     <p>A future feature I will work on later</p>  {/*Just putting a placeholder for now */}
-                </div>
+                <Filter 
+                    equipmentTypes={equipmentTypes}
+                    selectedType={selectedType}
+                    onFilterChange={(type) => {
+                        onFilterChange(type);
+                        setIsFilterOpen(false);
+                    }}
+                />
             )}
             </div>
 

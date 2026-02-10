@@ -161,7 +161,7 @@ const LocationTable = () => {
                     {/* Warehouses Section */}
                     {groupedLocations['Warehouse'].length > 0 && (
                         <div className={tabStyles.buildingSection}>
-                            <h3 className={tabStyles.buildingSectionTitle}>📦 Warehouses</h3>
+                            <h3 className={tabStyles.buildingSectionTitle}>Warehouse</h3>
                             {groupedLocations['Warehouse'].map(({ location, equipment: locEquip }) => (
                                 <LocationGroup
                                     key={location.id}
@@ -179,7 +179,7 @@ const LocationTable = () => {
                     {/* Classrooms Section */}
                     {groupedLocations['Classroom'].length > 0 && (
                         <div className={tabStyles.buildingSection}>
-                            <h3 className={tabStyles.buildingSectionTitle}>🏫 Classrooms</h3>
+                            <h3 className={tabStyles.buildingSectionTitle}>Classrooms</h3>
                             {groupedLocations['Classroom'].map(({ location, equipment: locEquip }) => (
                                 <LocationGroup
                                     key={location.id}
@@ -197,7 +197,7 @@ const LocationTable = () => {
                     {/* Offices Section */}
                     {groupedLocations['Office'].length > 0 && (
                         <div className={tabStyles.buildingSection}>
-                            <h3 className={tabStyles.buildingSectionTitle}>🏢 Offices</h3>
+                            <h3 className={tabStyles.buildingSectionTitle}>Offices</h3>
                             {groupedLocations['Office'].map(({ location, equipment: locEquip }) => (
                                 <LocationGroup
                                     key={location.id}
