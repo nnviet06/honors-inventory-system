@@ -61,7 +61,7 @@ const LocationGroup = ({
                             <tbody>
                                 {equipment.map(item => (
                                     <tr key={item.id}>
-                                        <td>{item.id}</td>
+                                        <td className={tabStyles.idCell}>{item.id}</td> 
                                         <td>{item.model}</td>
                                         <td>{item.equipment_type}</td>
                                         <td>
