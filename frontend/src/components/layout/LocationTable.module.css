@@ -1,0 +1,163 @@
+/* Tabs Container */
+.tabsContainer {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #006747;
+    padding-bottom: 10px;
+}
+
+/* Individual Tab */
+.tab {
+    background-color: #FFFFFF;
+    color: #006747;
+    padding: 12px 24px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px 8px 0 0;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+table th:first-child {
+    text-align: center;
+}
+
+.tab:hover {
+    background-color: #f5f5f5;
+    border-color: #006747;
+}
+
+/* Active Tab */
+.activeTab {
+    background-color: #006747;
+    color: #FFFFFF;
+    border-color: #006747;
+}
+
+/* Floor Actions */
+.floorActions {
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Add Floor Button */
+.addFloorButton {
+    background-color: #CFC493;
+    color: #006747;
+    padding: 12px 24px;
+    border: 2px solid #CFC493;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.addFloorButton:hover {
+    background-color: #b8ad7a;
+    border-color: #b8ad7a;
+}
+
+/* Building Section */
+.buildingSection {
+    margin-bottom: 40px;
+}
+
+/* Building Section Title */
+.buildingSectionTitle {
+    color: #006747;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+/* Location Group Container */
+.locationGroup {
+    margin-bottom: 20px;
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #e0e0e0;
+}
+
+/* Location Header (Clickable) */
+.locationHeader {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 20px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.locationHeader:hover {
+    background-color: #f0f0f0;
+}
+
+/* Collapse Icon */
+.collapseIcon {
+    color: #006747;
+    font-size: 14px;
+    width: 20px;
+    display: inline-block;
+}
+
+/* Location Name */
+.locationName {
+    color: #333333;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* Equipment List Container */
+.equipmentList {
+    padding: 20px;
+    background-color: #FFFFFF;
+}
+
+/* Equipment Table */
+.equipmentTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.equipmentTable th {
+    color: #FFFFFF;
+    background-color: #006747;
+    text-align: left;
+    padding: 14px;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.equipmentTable td {
+    color: #333333;
+    padding: 14px;
+    border-bottom: 2px solid #333333;
+    font-size: 15px;
+}
+
+.equipmentTable tr:hover {
+    background-color: #f9f9f9;
+}
+
+/* Empty State */
+.emptyText {
+    color: #999999;
+    font-style: italic;
+    text-align: center;
+    padding: 20px;
+}
+
+/* ID Column Highlight */
+.idCell {
+    background-color: #e8f5e9;
+    font-weight: 600;
+    color: #006747;
+    text-align: center;
+}

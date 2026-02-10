@@ -13,9 +13,11 @@ interface Equipment {
 
 interface EquipTableProps {
   refreshKey: number;
+  selectedType: string;
+  selectedLocation: string;
 }
 
-const EquipTable = ({ refreshKey }: EquipTableProps) => {
+const EquipTable = ({ refreshKey, selectedType, selectedLocation }: EquipTableProps) => {
   const [equipmentList, setEquipmentList] = useState<Equipment[]>([]);
   const [selectedItem, setSelectedItem] = useState<Equipment | null>(null);
   const [showEditEquipmentModal, setShowEditEquipmentModal] = useState(false);
@@ -100,6 +102,12 @@ const EquipTable = ({ refreshKey }: EquipTableProps) => {
     );
   }
 
+  const filteredEquipment = equipmentList.filter(item => {
+      const typeMatch = selectedType === 'All' || item.equipment_type === selectedType;
+      const locationMatch = selectedLocation === 'All' || item.building_type=== selectedLocation;
+      return typeMatch && locationMatch;
+  });
+
   return (
     <>
       <div className={styles.tableContainer}>
@@ -115,16 +123,16 @@ const EquipTable = ({ refreshKey }: EquipTableProps) => {
               </tr>
             </thead>
             <tbody>
-              {equipmentList.length === 0 ? (
+              {filteredEquipment.length === 0 ? (
                 <tr>
                   <td colSpan={5} className={styles.emptyText}>
                     No equipment found. Add new equipment to get started.
                   </td>
                 </tr>
               ) : (
-                equipmentList.map((item) => (
+                filteredEquipment.map((item) => (
                   <tr key={item.id}>
-                    <td>{item.id}</td>
+                    <td className={styles.idCell}>{item.id}</td>
                     <td>{item.model}</td>
                     <td>{item.equipment_type}</td>
                     <td>

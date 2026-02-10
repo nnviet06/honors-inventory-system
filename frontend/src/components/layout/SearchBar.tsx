@@ -1,8 +1,16 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import styles from './SearchBar.module.css';
 import AddNew from '../modals/AddNew';
+import Filter from '../modals/Filter';
 
-const SearchBar = ({ onRefresh }: { onRefresh: () => void }) => {    
+const SearchBar = ({ onRefresh, onTypeChange, selectedType, selectedLocation, onLocationChange, refreshKey }: { 
+    onRefresh: () => void;
+    onTypeChange: (type: string) => void;
+    onLocationChange: (location: string) => void;
+    selectedType: string;
+    selectedLocation: string;
+    refreshKey: number;
+}) => {   
     // Three main components: Search button, Filter button, and Add New button
     const [query, setQuery] = useState<string>('');
     const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
@@ -17,7 +25,25 @@ const SearchBar = ({ onRefresh }: { onRefresh: () => void }) => {
     const handleCloseModal = () => {
         setShowAddNewModal(false);  
     };
-
+const [equipmentTypes, setEquipmentTypes] = useState<string[]>(['All']);
+const [locations, setLocations] = useState<string[]>(['All']);
+// Fetch equipment types for filter dropdown
+useEffect(() => {
+        fetch('http://localhost:5000/api/types')
+            .then(res => res.json())
+            .then(data => setEquipmentTypes(['All', ...data])) 
+            .catch(err => console.error('Failed to load types:', err));
+    }, [refreshKey]);
+// Fetch locations for filter dropdown
+useEffect(() => {
+    fetch('http://localhost:5000/api/locations')
+        .then(res => res.json())
+        .then(data => {
+        const buildingTypes = [...new Set(data.map((loc: {building_type: string}) => loc.building_type))] as string[];;
+        setLocations(['All', ...buildingTypes]);
+        })
+        .catch(err => console.error('Failed to load locations:', err));
+}, [refreshKey]);
     return (
         <>
         <div className={styles.searchBar}>  
@@ -34,9 +60,20 @@ const SearchBar = ({ onRefresh }: { onRefresh: () => void }) => {
                 Filter 
             </button>
             {isFilterOpen && (
-                <div className={styles.filterDropdown}> 
-                     <p>A future feature I will work on later</p>  {/*Just putting a placeholder for now */}
-                </div>
+                <Filter 
+                    equipmentTypes={equipmentTypes}
+                    locations={locations}
+                    selectedType={selectedType}
+                    selectedLocation={selectedLocation}
+                    onTypeChange={(type) => {
+                        onTypeChange(type);
+                        setIsFilterOpen(false);
+                    }}
+                    onLocationChange={(location) => {
+                        onLocationChange(location);
+                        setIsFilterOpen(false);
+                    }}
+                />
             )}
             </div>
 

@@ -1,136 +1,111 @@
 .tableContainer {
-  max-width: 2000px;
-  margin: 20px auto;
-  padding: 0;
+    max-width: 1400px;
+    margin: 20px auto;
+    padding: 20px 40px;
 }
 
 .table {
-  background: linear-gradient(135deg, #1a2e2e 0%, #006747 50%, #005432 100%);
-  border-radius: 20px;
-  padding: 60px 60px;
-  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
-  width: 100%;
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+.table h2 {
+    color: #006747;
+    font-size: 28px;
+    margin-bottom: 20px;
 }
 
 table {
-  width: 100%;
-  border-collapse: collapse;
+    width: 100%;
+    border-collapse: collapse;
 }
 
-th {
-  color: #FFFFFF;
-  text-align: left;
-  padding: 28px 15px;
-  border-bottom: 4px solid #FFFFFF;
-  font-weight: 700;
-  font-size: 34px;
-  letter-spacing: 0.5px;
-  white-space: nowrap;
+table th {
+    color: #FFFFFF;
+    background-color: #006747;
+    text-align: left;
+    padding: 14px;
+    font-weight: bold;
+    font-size: 16px;
 }
 
-td {
-  color: #FFFFFF;
-  padding: 24px 15px;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
-  font-size: 32px;
-  white-space: normal;
+table td {
+    color: #333333;
+    padding: 14px;
+    border-bottom: 2px solid #333333;
+    font-size: 15px;
 }
 
-th:first-child,
-td:first-child {
-  padding-left: 30px;
+table tr:hover {
+    background-color: #f9f9f9;
 }
 
-th:last-child,
-td:last-child {
-  padding-right: 30px; 
-  white-space: nowrap;
+table th:first-child {
+    text-align: center;
 }
 
-tr:hover {
-  background-color: rgba(255, 255, 255, 0.05);
-}
-
-tbody tr:last-child td {
-  border-bottom: none;
+table th:last-child {
+    text-align: center;
 }
 
 .actionButtons {
-  display: flex;
-  gap: 20px;
-  align-items: center;
+    display: flex;
+    gap: 10px;
+    justify-content: center; 
+}
+
+.idCell {
+    background-color: #e8f5e9;
+    font-weight: 600;
+    color: #006747;
+    text-align: center;
 }
 
 .editButton {
-  background-color: #006747;
-  color: #FFFFFF;
-  border: 3px solid #FFFFFF;
-  padding: 16px 32px;
-  border-radius: 12px;
-  font-size: 20px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  min-width: 100px;
-  white-space: nowrap;
+    background-color: #006747;
+    color: #FFFFFF;
+    border: 2px solid #006747;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 15px;
+    transition: all 0.3s ease;
 }
 
 .editButton:hover {
-  background-color: #005432;
-  border-color: #FFFFFF;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
-}
-
-.editButton:active {
-  transform: translateY(0);
+    background-color: #005432;
+    border-color: #005432;
 }
 
 .deleteButton {
-  background-color: #dc3545;
-  color: #FFFFFF;
-  border: 3px solid #dc3545;
-  padding: 16px 32px;
-  border-radius: 12px;
-  font-size: 20px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  min-width: 120px;
-  white-space: nowrap;
+    background-color: #dc3545;
+    color: #FFFFFF;
+    border: 2px solid #dc3545;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 15px;
+    transition: all 0.3s ease;
 }
 
 .deleteButton:hover {
-  background-color: #c82333;
-  border-color: #c82333;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+    background-color: #c82333;
+    border-color: #c82333;
 }
 
-.deleteButton:active {
-  transform: translateY(0);
-}
-
-.loadingText {
-  color: #FFFFFF;
-  text-align: center;
-  padding: 80px 20px;
-  font-size: 30px;
-  font-weight: 500;
+.loadingText,
+.errorText {
+    color: #333333;
+    text-align: center;
+    padding: 40px;
+    font-size: 18px;
 }
 
 .errorText {
-  color: #dc3545;
-  text-align: center;
-  padding: 80px 20px;
-  font-size: 30px;
-  font-weight: 700;
-}
-
-.emptyText {
-  color: #FFFFFF;
-  text-align: center;
-  padding: 80px 20px;
-  font-size: 26px;
-  font-style: italic;
+    color: #dc3545;
 }

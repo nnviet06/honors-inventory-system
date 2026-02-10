@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styles from './NavBar.module.css';
 
 const NavBar = () => {
@@ -9,8 +10,8 @@ const NavBar = () => {
         <nav>
             <h1 className={styles.title}>📦 WELCOME TO THE HONORS INVENTORY SYSTEM</h1>
             <div className={styles.navButtons}>
-            <button className={styles.navButton}> By Items  </button>
-            <button className={styles.navButton}> By Location </button>
+            <Link to="/items" className={styles.navButton}> By Items </Link>
+            <Link to="/locations" className={styles.navButton}> By Location </Link>
             </div>
         </nav>
     );
