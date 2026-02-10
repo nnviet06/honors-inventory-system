@@ -1,0 +1,151 @@
+/* Tabs Container */
+.tabsContainer {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #CFC493;
+    padding-bottom: 10px;
+}
+
+/* Individual Tab */
+.tab {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #FFFFFF;
+    padding: 12px 24px;
+    border: 2px solid rgba(207, 196, 147, 0.3);
+    border-radius: 8px 8px 0 0;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.tab:hover {
+    background-color: rgba(207, 196, 147, 0.2);
+    border-color: #CFC493;
+}
+
+/* Active Tab */
+.activeTab {
+    background-color: #CFC493;
+    color: #006747;
+    border-color: #CFC493;
+}
+
+/* Floor Actions */
+.floorActions {
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Add Floor Button */
+.addFloorButton {
+    background-color: #CFC493;
+    color: #006747;
+    padding: 12px 24px;
+    border: 2px solid #CFC493;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.addFloorButton:hover {
+    background-color: #006747;
+    color: #CFC493;
+    border-color: #CFC493;
+}
+
+/* Building Section (Warehouse/Classroom/Office) */
+.buildingSection {
+    margin-bottom: 40px;
+}
+
+/* Building Section Title */
+.buildingSectionTitle {
+    color: #CFC493;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid rgba(207, 196, 147, 0.3);
+}
+
+/* LocationGroup Styles */
+
+/* Location Group Container */
+.locationGroup {
+    margin-bottom: 20px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Location Header (Clickable) */
+.locationHeader {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 20px;
+    background-color: rgba(207, 196, 147, 0.15);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.locationHeader:hover {
+    background-color: rgba(207, 196, 147, 0.25);
+}
+
+/* Collapse Icon */
+.collapseIcon {
+    color: #CFC493;
+    font-size: 14px;
+    width: 20px;
+    display: inline-block;
+}
+
+/* Location Name */
+.locationName {
+    color: #FFFFFF;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* Equipment List Container */
+.equipmentList {
+    padding: 20px;
+}
+
+/* Equipment Table */
+.equipmentTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.equipmentTable th {
+    color: #CFC493;
+    text-align: left;
+    padding: 12px;
+    border-bottom: 2px solid #CFC493;
+    font-weight: 600;
+}
+
+.equipmentTable td {
+    color: #FFFFFF;
+    padding: 12px;
+    border-bottom: 1px solid rgba(207, 196, 147, 0.2);
+}
+
+.equipmentTable tr:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Empty State */
+.emptyText {
+    color: #CAD2D8;
+    font-style: italic;
+    text-align: center;
+    padding: 20px;
+}
