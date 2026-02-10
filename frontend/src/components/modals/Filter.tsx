@@ -1,4 +1,5 @@
 import styles from './Filter.module.css';
+import { useState } from 'react';
 
 interface FilterProps {
     equipmentTypes: string[];
@@ -9,9 +10,18 @@ interface FilterProps {
     onLocationChange: (location: string) => void;
 }
 const Filter = ({ equipmentTypes, selectedType, onTypeChange, locations, selectedLocation, onLocationChange }: FilterProps) => {
+    const [showTypes, setShowTypes] = useState(false);
+    const [showLocations, setShowLocations] = useState(false);
     return (
         <div className={styles.filterDropdown}> 
-        {/* Filter by equipment type */}
+        {/* Filter by type */}
+        <button 
+                className={styles.filterHeader} 
+                onClick={() => setShowTypes(!showTypes)} >
+                By Type {showTypes ? '▲' : '▼'}
+        </button>
+        {showTypes && (
+            <div className={styles.filterSection}>
             {equipmentTypes.map((type) => ( 
                 <button
                     key={type}
@@ -21,8 +31,18 @@ const Filter = ({ equipmentTypes, selectedType, onTypeChange, locations, selecte
                     {type}
                 </button>
             ))}    
-        <div className={styles.filterDropdown}>
+        </div>
+        )}
+
+        <div className={styles.divider}> </div>
         {/* Filter by location */}
+        <button 
+            className={styles.filterHeader}
+            onClick={() => setShowLocations(!showLocations)} >
+            By Location {showLocations ? '▲' : '▼'}
+        </button>
+        {showLocations && (
+        <div className = {styles.filterSection}>
             {locations.map((location) => (
                 <button
                     key={location}
@@ -33,6 +53,7 @@ const Filter = ({ equipmentTypes, selectedType, onTypeChange, locations, selecte
                 </button>
             ))}    
         </div>
+        )}
         </div>
         
     );

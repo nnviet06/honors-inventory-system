@@ -38,7 +38,10 @@ useEffect(() => {
 useEffect(() => {
     fetch('http://localhost:5000/api/locations')
         .then(res => res.json())
-        .then(data => setLocations(['All', ...data.map((loc: {room_name: string}) => loc.room_name)]))
+        .then(data => {
+        const buildingTypes = [...new Set(data.map((loc: {building_type: string}) => loc.building_type))] as string[];;
+        setLocations(['All', ...buildingTypes]);
+        })
         .catch(err => console.error('Failed to load locations:', err));
 }, [refreshKey]);
     return (

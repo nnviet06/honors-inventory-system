@@ -104,7 +104,7 @@ const EquipTable = ({ refreshKey, selectedType, selectedLocation }: EquipTablePr
 
   const filteredEquipment = equipmentList.filter(item => {
       const typeMatch = selectedType === 'All' || item.equipment_type === selectedType;
-      const locationMatch = selectedLocation === 'All' || item.room_name === selectedLocation;
+      const locationMatch = selectedLocation === 'All' || item.building_type=== selectedLocation;
       return typeMatch && locationMatch;
   });
 
