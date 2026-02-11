@@ -1,3 +1,10 @@
+/**
+ * Equipment Table Component (Container + Logic)
+ * Displays all equipment in a sortable table with Edit/Delete actions.
+ * Fetches equipment data and applies client-side filtering (type, location, search).
+ * Manages EditEquipment modal and handles delete API calls.
+ */
+
 import { useState, useEffect } from 'react';
 import styles from './EquipTable.module.css';
 import EditEquipment from '../modals/EditEquipment';

@@ -1,3 +1,8 @@
+/**
+ * Application Entry Point
+ * Initializes React app with BrowserRouter for client-side routing.
+ */
+
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'

@@ -1,4 +1,9 @@
-//import { useState } from 'react'
+/**
+ * Root Application Component
+ * Sets up main layout structure and defines route configuration.
+ * Routes: "/" and "/items" → ItemsView, "/locations" → LocationsView
+ */
+
 import styles from './App.module.css'
 import NavBar from './components/layout/NavBar'
 import ItemsView from './pages/ItemsView'

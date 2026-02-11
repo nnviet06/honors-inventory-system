@@ -1,3 +1,10 @@
+/**
+ * Items View Page Container
+ * Manages shared state for the "By Items" view including:
+ * - Search query, filter selections (type/location), and refresh triggers.
+ * Passes state and handlers down to SearchBar and EquipTable components.
+ */
+
 import styles from './ItemsView.module.css';
 import SearchBar from '../components/layout/SearchBar';  
 import EquipTable from '../components/layout/EquipTable';  

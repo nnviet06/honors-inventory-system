@@ -1,3 +1,10 @@
+/**
+ * Search Bar Component (Container + Logic)
+ * Handles search input, filter dropdown, and "Add New" modal trigger.
+ * Fetches equipment types and locations for filter options.
+ * Manages local state for search input, filter visibility, and modal display.
+ */
+
 import {useEffect, useState} from 'react';
 import styles from './SearchBar.module.css';
 import AddNew from '../modals/AddNew';
