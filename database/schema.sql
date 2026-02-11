@@ -1,3 +1,9 @@
+-- Database Schema Definition
+-- Creates tables for the Honors Inventory System:
+--   - locations: Room information (id, room_name, building_type)
+--   - equipment: Equipment records with foreign key to locations
+-- Includes indexes for optimized queries.
+
 DROP TABLE IF EXISTS equipment;
 DROP TABLE IF EXISTS locations;
 

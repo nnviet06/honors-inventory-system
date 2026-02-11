@@ -1,3 +1,12 @@
+/**
+ * Database Access Layer (SQLite with better-sqlite3)
+ * Manages SQLite database connection and provides data access functions.
+ * On initialization: Creates tables from schema.sql and seeds sample data
+ * if database is empty.
+ * Exports: getAllEquipment, getEquipmentById, createEquipment,
+ *          updateEquipment, deleteEquipment, getAllLocations, getAllTypes
+ */
+
 import Database from 'better-sqlite3';
 import { readFileSync } from 'fs';
 import { join } from 'path';

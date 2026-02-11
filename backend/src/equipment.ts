@@ -1,3 +1,8 @@
+/**
+ * API Route Definitions
+ * Defines all RESTful endpoints for equipment and location resources.
+ */
+
 import { Router } from 'express';
 import * as controller from './equipmentController';
 
