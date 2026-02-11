@@ -3,8 +3,9 @@ import styles from './SearchBar.module.css';
 import AddNew from '../modals/AddNew';
 import Filter from '../modals/Filter';
 
-const SearchBar = ({ onRefresh, onTypeChange, selectedType, selectedLocation, onLocationChange, refreshKey }: { 
+const SearchBar = ({ onRefresh, onSearch, onTypeChange, selectedType, selectedLocation, onLocationChange, refreshKey }: { 
     onRefresh: () => void;
+    onSearch: (searchInput: string) => void;
     onTypeChange: (type: string) => void;
     onLocationChange: (location: string) => void;
     selectedType: string;
@@ -12,7 +13,7 @@ const SearchBar = ({ onRefresh, onTypeChange, selectedType, selectedLocation, on
     refreshKey: number;
 }) => {   
     // Three main components: Search button, Filter button, and Add New button
-    const [query, setQuery] = useState<string>('');
+    const [searchInput, setSearchInput] = useState<string>('');
     const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
     const [showAddNewModal, setShowAddNewModal] = useState<boolean>(false);
 
@@ -50,10 +51,10 @@ useEffect(() => {
             <input
                 className={styles.searchInput}
                 type="text" 
-                placeholder="A future feature I will work on later " //Just putting a placeholder for now
-                value={query} 
-                onChange={(e) => setQuery(e.target.value)} />    {/* Setting up userState for Search button component*/}
-            <button className={styles.searchButton}> Search </button>  
+                placeholder="Search model name ..." 
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)} />    {/* Setting up userState for Search button component*/}
+            <button className={styles.searchButton} onClick={() => onSearch(searchInput)}> Search </button>
 
             <div className={styles.filterContainer}>
             <button className={styles.filterButton} onClick={toggleFilter}>  {/* Setting up userState for Filter button component*/}
