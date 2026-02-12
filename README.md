@@ -10,6 +10,27 @@ This inventory system enables the Honors IT Team to:
 - **ADD NEW** to inventory
 - **DELETE** broken equipment
 ---
+## Demo Screenshots
+
+### Items View
+![Items View](./projectdemo/byitemsview.jpg)
+
+### Location View
+![Location View](./projectdemo/bylocationview.jpg)
+
+### Search Function
+![Search Function](./projectdemo/searchfunction.jpg)
+
+### Filter Function
+![Filter Function](./projectdemo/filterfunction.jpg)
+
+### Add New Equipment
+![Add New Function](./projectdemo/addnewfunction.jpg)
+
+### Edit Equipment
+![Edit Function](./projectdemo/editfunction.jpg)
+
+---
 
 ## Technology Stack
 
