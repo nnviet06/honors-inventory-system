@@ -1,3 +1,12 @@
+/**
+ * Equipment Controller (Business Logic Layer)
+ * Handles HTTP request/response processing for equipment operations.
+ * Validates input, calls database functions, and returns appropriate
+ * HTTP status codes and JSON responses.
+ * Functions: getAllEquipment, getEquipmentById, createEquipment,
+ *            updateEquipment, deleteEquipment, getAllLocations, getAllTypes
+ */
+
 import { Request, Response } from 'express';
 import * as db from './database';
 

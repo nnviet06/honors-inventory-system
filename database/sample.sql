@@ -1,3 +1,5 @@
+-- Sample Data for Development/Testing
+
 -- LOCATIONS
 -- Floor 1: 2 Offices only
 INSERT INTO locations (room_name, building_type) VALUES

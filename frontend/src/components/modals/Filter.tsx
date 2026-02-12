@@ -1,3 +1,9 @@
+/**
+ * Filter Dropdown Component (Presentational)
+ * Displays collapsible filter options for equipment type and building location.
+ * Controlled component - receives options and selection handlers via props.
+ */
+
 import styles from './Filter.module.css';
 import { useState } from 'react';
 

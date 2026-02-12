@@ -1,3 +1,9 @@
+/**
+ * Navigation Bar Component
+ * Displays application header and navigation links.
+ * Provides routing between "By Items" and "By Location" views.
+ */
+
 import { Link } from 'react-router-dom';
 import styles from './NavBar.module.css';
 

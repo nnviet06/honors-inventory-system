@@ -1,3 +1,10 @@
+/**
+ * Equipment Table Component (Container + Logic)
+ * Displays all equipment in a sortable table with Edit/Delete actions.
+ * Fetches equipment data and applies client-side filtering (type, location, search).
+ * Manages EditEquipment modal and handles delete API calls.
+ */
+
 import { useState, useEffect } from 'react';
 import styles from './EquipTable.module.css';
 import EditEquipment from '../modals/EditEquipment';
@@ -13,11 +20,12 @@ interface Equipment {
 
 interface EquipTableProps {
   refreshKey: number;
+  search: string;
   selectedType: string;
   selectedLocation: string;
 }
 
-const EquipTable = ({ refreshKey, selectedType, selectedLocation }: EquipTableProps) => {
+const EquipTable = ({ refreshKey, search, selectedType, selectedLocation }: EquipTableProps) => {
   const [equipmentList, setEquipmentList] = useState<Equipment[]>([]);
   const [selectedItem, setSelectedItem] = useState<Equipment | null>(null);
   const [showEditEquipmentModal, setShowEditEquipmentModal] = useState(false);
@@ -105,8 +113,11 @@ const EquipTable = ({ refreshKey, selectedType, selectedLocation }: EquipTablePr
   const filteredEquipment = equipmentList.filter(item => {
       const typeMatch = selectedType === 'All' || item.equipment_type === selectedType;
       const locationMatch = selectedLocation === 'All' || item.building_type=== selectedLocation;
-      return typeMatch && locationMatch;
+      const searchMatch = search === '' || item.model.toLowerCase().includes(search.toLowerCase());
+      return typeMatch && locationMatch && searchMatch;
   });
+
+  
 
   return (
     <>

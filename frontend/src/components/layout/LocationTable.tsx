@@ -1,3 +1,10 @@
+/**
+ * Location Table Component (Container + Logic)
+ * Displays equipment organized by floor and building type (Warehouse/Classroom/Office).
+ * Features: Floor tabs, collapsible location groups, inline Edit/Delete actions.
+ * Fetches both equipment and location data, manages modal states for Add/Edit.
+ */ 
+
 import { useState, useEffect } from 'react';
 import styles from './EquipTable.module.css';
 import tabStyles from './LocationTable.module.css';

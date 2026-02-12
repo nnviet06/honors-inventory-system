@@ -1,3 +1,10 @@
+/**
+ * Add New Equipment Modal
+ * Form component for creating new equipment entries.
+ * Handles form validation, POST API call to /api/equipment,
+ * and loading/error states.
+ */
+
 import { useState, useEffect } from 'react';
 import styles from './AddNew.module.css';
 

@@ -1,5 +1,9 @@
-// This file handles the logic for the Edit button
-// which is used to change an equipment's detail: location, model and type
+/**
+ * Edit Equipment Modal
+ * Form component for updating equipment details (model, type, location).
+ * Fetches available types and locations for dropdown options.
+ * Handles validation, PUT API call, and loading/error states.
+ */
 
 import { useState, useEffect } from 'react';
 import styles from './EditEquipment.module.css';

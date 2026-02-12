@@ -1,3 +1,9 @@
+/**
+ * Express Server Entry Point
+ * Initializes Express application with CORS middleware and JSON parsing.
+ * Mounts all API routes under /api prefix and starts server on port 5000.
+ */
+
 import express from 'express';
 import cors from 'cors';
 import equipmentRoutes from './equipment';

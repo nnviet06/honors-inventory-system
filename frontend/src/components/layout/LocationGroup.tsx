@@ -1,3 +1,10 @@
+/**
+ * Location Group Component (Presentational)
+ * Renders a collapsible section for a single location.
+ * Displays equipment list with Edit/Delete buttons when expanded.
+ * Controlled component - receives all data and handlers via props.
+ */
+
 import styles from './EquipTable.module.css';
 import tabStyles from './LocationTable.module.css';
 
