@@ -1,27 +1,25 @@
-import { useState } from 'react'
+/**
+ * Root Application Component
+ * Sets up main layout structure and defines route configuration.
+ * Routes: "/" and "/items" → ItemsView, "/locations" → LocationsView
+ */
+
 import styles from './App.module.css'
 import NavBar from './components/layout/NavBar'
-import SearchBar from './components/layout/SearchBar'
-import EquipTable from './components/layout/EquipTable'
-//import AddNew from './components/modals/AddNew'
-//import LocChange from './components/modals/LocChange'
-//import Location from './components/layout/Location'
+import ItemsView from './pages/ItemsView'
+import LocationsView from './pages/LocationsView'
+import { Route, Routes } from 'react-router-dom'
 
 
 function App() {
-    const [refreshKey, setRefreshKey] = useState(0);  
-
-    const handleRefresh = () => {  
-        setRefreshKey(prev => prev + 1);
-    };
-
     return (
         <div className={styles.app}>
             <NavBar />  
-            <SearchBar onRefresh={handleRefresh} />  
-            <div className={styles.container}>
-                <EquipTable  refreshKey={refreshKey} /> 
-            </div>
+            <Routes>
+                <Route path="/" element={<ItemsView/>} />
+                <Route path="/items" element={<ItemsView/>} />
+                <Route path="/locations" element={<LocationsView/>} />
+            </Routes>
         </div>
     );
 }

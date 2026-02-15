@@ -1,30 +1,25 @@
-// Define types, interfaces related to equipment management in the backend
+/**
+ * API Route Definitions
+ * Defines all RESTful endpoints for equipment and location resources.
+ */
 
-export type BuildingType = 'Warehouse' | 'Classroom' | 'Office';
+import { Router } from 'express';
+import * as controller from './equipmentController';
 
-export interface Location {
-  id: number;
-  room_name: string;
-  building_type: BuildingType;
-  created_at: Date;
-}
+const router = Router();
 
-export interface Equipment {
-  id: number;
-  model: string;
-  equipment_type: string;
-  location_id: number;
-  created_at: Date;
-  updated_at: Date;
-}
+router.get('/equipment', controller.getAllEquipment);
 
-export interface EquipmentWithLocation extends Equipment {
-  room_name: string;
-  building_type: BuildingType;
-}
+router.get('/equipment/:id', controller.getEquipmentById);
 
-export interface NewEquipment {
-  model: string;
-  equipment_type: string;
-  location_id: number;
-}
+router.get('/types', controller.getAllTypes);
+
+router.get('/locations', controller.getAllLocations);
+
+router.post('/equipment', controller.createEquipment);
+
+router.put('/equipment/:id', controller.updateEquipment);
+
+router.delete('/equipment/:id', controller.deleteEquipment);
+
+export default router;

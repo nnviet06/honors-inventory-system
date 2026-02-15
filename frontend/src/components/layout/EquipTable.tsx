@@ -1,6 +1,13 @@
+/**
+ * Equipment Table Component (Container + Logic)
+ * Displays all equipment in a sortable table with Edit/Delete actions.
+ * Fetches equipment data and applies client-side filtering (type, location, search).
+ * Manages EditEquipment modal and handles delete API calls.
+ */
+
 import { useState, useEffect } from 'react';
 import styles from './EquipTable.module.css';
-import LocChange from '../modals/LocChange';
+import EditEquipment from '../modals/EditEquipment';
 
 interface Equipment {
   id: number;
@@ -11,10 +18,17 @@ interface Equipment {
   building_type: string;
 }
 
-const EquipTable = ({ refreshKey }: EquipTableProps) => {
+interface EquipTableProps {
+  refreshKey: number;
+  search: string;
+  selectedType: string;
+  selectedLocation: string;
+}
+
+const EquipTable = ({ refreshKey, search, selectedType, selectedLocation }: EquipTableProps) => {
   const [equipmentList, setEquipmentList] = useState<Equipment[]>([]);
   const [selectedItem, setSelectedItem] = useState<Equipment | null>(null);
-  const [showLocChangeModal, setShowLocChangeModal] = useState(false);
+  const [showEditEquipmentModal, setShowEditEquipmentModal] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -44,7 +58,7 @@ const EquipTable = ({ refreshKey }: EquipTableProps) => {
 
   const handleEdit = (item: Equipment) => {
     setSelectedItem(item);
-    setShowLocChangeModal(true);
+    setShowEditEquipmentModal(true);
   };
 
   const handleDelete = async (id: number, model: string) => {
@@ -71,7 +85,7 @@ const EquipTable = ({ refreshKey }: EquipTableProps) => {
   };
 
   const handleModalClose = () => {
-    setShowLocChangeModal(false);
+    setShowEditEquipmentModal(false);
     setSelectedItem(null);
     fetchEquipment();
   };
@@ -96,6 +110,15 @@ const EquipTable = ({ refreshKey }: EquipTableProps) => {
     );
   }
 
+  const filteredEquipment = equipmentList.filter(item => {
+      const typeMatch = selectedType === 'All' || item.equipment_type === selectedType;
+      const locationMatch = selectedLocation === 'All' || item.building_type=== selectedLocation;
+      const searchMatch = search === '' || item.model.toLowerCase().includes(search.toLowerCase());
+      return typeMatch && locationMatch && searchMatch;
+  });
+
+  
+
   return (
     <>
       <div className={styles.tableContainer}>
@@ -111,16 +134,16 @@ const EquipTable = ({ refreshKey }: EquipTableProps) => {
               </tr>
             </thead>
             <tbody>
-              {equipmentList.length === 0 ? (
+              {filteredEquipment.length === 0 ? (
                 <tr>
                   <td colSpan={5} className={styles.emptyText}>
                     No equipment found. Add new equipment to get started.
                   </td>
                 </tr>
               ) : (
-                equipmentList.map((item) => (
+                filteredEquipment.map((item) => (
                   <tr key={item.id}>
-                    <td>{item.id}</td>
+                    <td className={styles.idCell}>{item.id}</td>
                     <td>{item.model}</td>
                     <td>{item.equipment_type}</td>
                     <td>
@@ -150,8 +173,8 @@ const EquipTable = ({ refreshKey }: EquipTableProps) => {
         </div>
       </div>
 
-      {showLocChangeModal && selectedItem && (
-        <LocChange
+      {showEditEquipmentModal && selectedItem && (
+        <EditEquipment
           item={selectedItem}
           onClose={handleModalClose}
         />
