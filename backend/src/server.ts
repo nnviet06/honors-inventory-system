@@ -6,7 +6,7 @@
 
 import express from 'express';
 import cors from 'cors';
-import equipmentRoutes from './equipment';
+import equipmentRoutes from './routes';
 
 const app = express();
 const PORT = 5000;
