@@ -16,7 +16,11 @@ export const getAllEquipment = async (req: Request, res: Response) => {
       .from('equipment')
       .select('*, locations(room_name, building_type)');
     if (error) throw error;
-    res.status(200).json(data);
+    const flattened = data.map(item => {
+        const { locations, ...rest } = item;
+        return { ...rest, ...locations };
+    });
+    res.status(200).json(flattened);
   } catch (error) {
     res.status(500).json({ error: 'Failed to retrieve equipment' });
   }
@@ -30,7 +34,11 @@ export const getEquipmentById = async (req: Request, res: Response) => {
       .select('*, locations(room_name, building_type)')
       .eq('id', id);
     if (error) throw error;
-    res.status(200).json(data);
+    const flattened = data.map(item => {
+        const { locations, ...rest } = item;
+        return { ...rest, ...locations };
+    });
+    res.status(200).json(flattened);
   } catch (error) {
     res.status(500).json({ error: 'Failed to retrieve equipment by ID' });
   }
