@@ -8,103 +8,113 @@
  */
 
 import { Request, Response } from 'express';
-import * as db from './database';
+import supabase from './database';
 
-export const getAllEquipment = (req: Request, res: Response) => {
-    try {
-        const equipment = db.getAllEquipment();
-        res.json(equipment);
-    } catch (error) {
-        res.status(500).json({ error: 'Failed to fetch equipment' });
-    }
-};
-
-// Get equipment by ID
-export const getEquipmentById = (req: Request, res: Response) => {
-    try {
-        const id = parseInt(req.params.id as string);
-        const equipment = db.getEquipmentById(id);
-        
-        if (!equipment) {
-            return res.status(404).json({ error: 'Equipment not found' });
-        }
-        
-        res.json(equipment);
-    } catch (error) {
-        res.status(500).json({ error: 'Failed to fetch' });
-    }
-};
-
-// Get locations
-export const getAllLocations = (req: Request, res: Response) => {
-    try {
-        const locations = db.getAllLocations();
-        res.json(locations);
-    } catch (error) {
-        res.status(500).json({ error: 'Failed to fetch locations' });
-    }
-};
-
-// Get equipment types
-export const getAllTypes = (req: Request, res: Response) => {
-    try {
-        const types = db.getAllTypes();
-        res.json(types);
-    } catch (error) {
-        res.status(500).json({ error: 'Failed to fetch equipment types' });
-    }
-};
-
-// Post new equipment
-export const createEquipment = (req: Request, res: Response) => {
-    try {
-        const { model, equipment_type, location_id } = req.body;
-        
-        if (!model || !equipment_type || !location_id) {
-            return res.status(400).json({ error: 'Missing required fields' });
-        }
-        
-        const result = db.createEquipment(model, equipment_type, location_id);
-        res.status(201).json({ id: result.lastInsertRowid, message: 'Equipment created' });
-        } catch (error) {
-            res.status(500).json({ error: 'Failed to create equipment' });
-        }
-};
-
-// Update equipment details (location, model, or type)
-export const updateEquipment = (req: Request, res: Response) => {
-    try {
-        const id = parseInt(req.params.id as string);
-        const { location_id, model, equipment_type } = req.body;
-        
-        if (!model && !equipment_type && !location_id) {
-            return res.status(400).json({ error: 'At least one field required' });
+export const getAllEquipment = async (req: Request, res: Response) => {
+  try {
+    const { data, error } = await supabase
+      .from('equipment')
+      .select('*, locations(room_name, building_type)');
+    if (error) throw error;
+    const flattened = data.map(item => {
+        const { locations, ...rest } = item;
+        return { ...rest, ...locations };
+    });
+    res.status(200).json(flattened);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to retrieve equipment' });
+  }
 }
-        
-        const result = db.updateEquipment(id, location_id, model, equipment_type);
-        
-        if (result.changes === 0) {
-            return res.status(404).json({ error: 'Equipment not found' });
-        }
-        
-        res.json({ message: 'Equipment updated' });
-    } catch (error) {
-        res.status(500).json({ error: 'Failed to update equipment details' });
-    }
-};
 
-// Delete equipment
-export const deleteEquipment = (req: Request, res: Response) => {
-    try {
-        const id = parseInt(req.params.id as string);
-        const result = db.deleteEquipment(id);
-        
-        if (result.changes === 0) {
-            return res.status(404).json({ error: 'Equipment not found' });
-        }
-        
-        res.json({ message: 'Equipment deleted' });
-    } catch (error) {
-        res.status(500).json({ error: 'Failed to delete equipment' });
+export const getEquipmentById = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const { data, error } = await supabase
+      .from('equipment')
+      .select('*, locations(room_name, building_type)')
+      .eq('id', id);
+    if (error) throw error;
+    const flattened = data.map(item => {
+        const { locations, ...rest } = item;
+        return { ...rest, ...locations };
+    });
+    res.status(200).json(flattened);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to retrieve equipment by ID' });
+  }
+}
+
+export const createEquipment = async (req: Request, res: Response) => {
+  try {
+    const { model, equipment_type, location_id } = req.body;
+    if (!model || !equipment_type || !location_id) {
+        return res.status(400).json({ error: 'Missing required fields' });
     }
-};
+    const { data, error } = await supabase
+      .from('equipment')
+      .insert([
+        { model, equipment_type, location_id }
+      ]);
+    if (error) throw error;
+    res.status(201).json(data);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to create equipment' });
+  }
+}
+
+export const updateEquipment = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const { model, equipment_type, location_id } = req.body;
+    const { data, error } = await supabase
+      .from('equipment')
+      .update({
+        model,
+        equipment_type,
+        location_id
+      })
+      .eq('id', id);
+    if (error) throw error;
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to update equipment' });
+  }
+}
+
+export const deleteEquipment = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const { data, error } = await supabase
+      .from('equipment')
+      .delete()
+      .eq('id', id);
+    if (error) throw error;
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to delete equipment' });
+  }
+}
+
+export const getAllLocations = async (req: Request, res: Response) => {
+  try {
+    const { data, error } = await supabase
+      .from('locations')
+      .select('*');
+    if (error) throw error;
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to retrieve locations' });
+  }
+}
+
+export const getAllTypes = async (req: Request, res: Response) => {
+  try {
+    const { data, error } = await supabase
+        .from('equipment').select('equipment_type');
+    if (error) throw error;
+    const types = [...new Set(data.map(item => item.equipment_type))];
+    res.status(200).json(types);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to retrieve types' });
+  }
+}

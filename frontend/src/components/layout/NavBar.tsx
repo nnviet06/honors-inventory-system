@@ -7,10 +7,10 @@
 import { Link } from 'react-router-dom';
 import styles from './NavBar.module.css';
 
+
 const NavBar = () => {
     // Simple NavBar
     // The Main Page is already on By Items view
-    // Will work on "By Location" button later if I have time. 
 
     return (
         <nav>
