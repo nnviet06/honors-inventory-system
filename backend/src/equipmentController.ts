@@ -22,7 +22,7 @@ export const getAllEquipment = (req: Request, res: Response) => {
 // Get equipment by ID
 export const getEquipmentById = (req: Request, res: Response) => {
     try {
-        const id = parseInt(req.params.id);
+        const id = parseInt(req.params.id as string);
         const equipment = db.getEquipmentById(id);
         
         if (!equipment) {
@@ -74,7 +74,7 @@ export const createEquipment = (req: Request, res: Response) => {
 // Update equipment details (location, model, or type)
 export const updateEquipment = (req: Request, res: Response) => {
     try {
-        const id = parseInt(req.params.id);
+        const id = parseInt(req.params.id as string);
         const { location_id, model, equipment_type } = req.body;
         
         if (!model && !equipment_type && !location_id) {
@@ -96,7 +96,7 @@ export const updateEquipment = (req: Request, res: Response) => {
 // Delete equipment
 export const deleteEquipment = (req: Request, res: Response) => {
     try {
-        const id = parseInt(req.params.id);
+        const id = parseInt(req.params.id as string);
         const result = db.deleteEquipment(id);
         
         if (result.changes === 0) {
