@@ -40,36 +40,25 @@ This inventory system enables the Honors IT Team to:
 
 ### Frontend: React + Vite + TypeScript + CSS Modules
 
-### Backend: Node.js + Express + TypeScript + better-sqlite3
+### Backend: Node.js + Express + TypeScript
 
-### Database: SQLite
+### Database: PostgreSQL (hosted on Supabase)
 
 ## Features
 
-### Completed Features
-- ✅ **View Equipment** - Display all equipment in a table
-- ✅ **Add Equipment** - Modal form to add new items
-- ✅ **Edit Equipment** - Edit model, type, and location of equipment
-- ✅ **Delete Equipment** - Remove items from inventory
-- ✅ **Search Button** - Search equipment by model name
-- ✅ **Filter Button** - Filter by type and building location  
-- ✅ **"By Items" View** - Traditional table view of all equipment
-- ✅ **"By Location" View** - Floor-by-floor navigation with collapsible sections
-- ✅ **Routing** - React Router navigation between By Items and By Location views
-- ✅ **Loading States** - Visual feedback during API calls
-- ✅ **Error Handling** - User-friendly error messages
-- ✅ **Auto-refresh** - Table updates after add/edit/delete
-- ✅ **USF Theme** 
-
-## Recent Updates (SQLite Version)
-
-This version includes additional features implemented after the initial submission:
-
-- ✅ **Routing** - React Router navigation between views
-- ✅ **Edit Equipment Details** - Edit model and type (previously only location)
-- ✅ **Search Functionality** - Real-time search by equipment model name
-- ✅ **Filter Dropdown** - Filter by equipment type and building location
-- ✅ **By Location View** - Complete floor-by-floor navigation
+- **View Equipment** - Display all equipment in a table
+- **Add Equipment** - Modal form to add new items
+- **Edit Equipment** - Edit model, type, and location of equipment
+- **Delete Equipment** - Remove items from inventory
+- **Search Button** - Search equipment by model name
+- **Filter Button** - Filter by type and building location  
+- **"By Items" View** - Traditional table view of all equipment
+- **"By Location" View** - Floor-by-floor navigation with collapsible sections
+- **Routing** - React Router navigation between By Items and By Location views
+- **Loading States** - Visual feedback during API calls
+- **Error Handling** - User-friendly error messages
+- **Auto-refresh** - Table updates after add/edit/delete
+- **USF Theme** 
 
 ## Feature Highlights
 
@@ -126,6 +115,23 @@ npm install
 cd ../frontend
 npm install
 ```
+
+### 4. Setup Environment Variables
+
+Create a `.env` file in the `backend/` directory:
+```
+SUPABASE_ANON_KEY=your_anon_key_here
+SUPABASE_URL=your_project_url_here
+PORT=5000
+```
+
+Get your credentials from [Supabase](https://supabase.com) → Project Settings → API
+
+### 5. Setup Database
+
+1. In Supabase dashboard, go to **SQL Editor**
+2. Run the contents of `database/schema.sql`
+3. Run the contents of `database/sample.sql`
 ---
 
 ## How to Run
@@ -157,13 +163,12 @@ npm run dev
 **Expected output:**
 ```
 [nodemon] starting `ts-node src/server.ts`
-Using database: inventory.db
-Initialized sample (inventory.db)
+[dotenv@17.3.1] injecting env (4) from .env
 Server running on http://localhost:5000
 ```
 **Key indicators:**
+- "injecting env (4) from .env"
 - "Server running on http://localhost:5000"
-- "Initialized sample" (first time only)
 - No error messages
 
 ### After `npm install` (Frontend):
@@ -191,24 +196,6 @@ VITE v7.x.x ready in XXXms
 
 **If everything above checks out → Your system is ready**
 
-
-
-## Database Setup
-
-The database is **automatically initialized** when you first run the backend!
-
-## Future Work
-
-All frontend planned features have been implemented. For scalability, backend needs more attention:
-
-- Migrate from SQLite to PostgreSQL for production
-- Add pagination for large datasets
-- Implement caching to reduce API calls
-- Add authentication and user roles
-
-
 ## Acknowledgments
 
 - CSS and database are AI powered to save time.
-
-> **Note:** All previously planned features have been implemented in this version.
