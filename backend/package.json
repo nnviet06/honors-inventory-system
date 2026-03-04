@@ -2,7 +2,9 @@
   "name": "honors-inventory-backend",
   "version": "1.0.0",
   "scripts": {
-    "dev": "nodemon src/server.ts"
+    "dev": "nodemon src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.88.0",
