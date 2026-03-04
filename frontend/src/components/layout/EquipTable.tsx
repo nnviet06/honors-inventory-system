@@ -39,7 +39,7 @@ const EquipTable = ({ refreshKey, search, selectedType, selectedLocation }: Equi
   const fetchEquipment = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:5000/api/equipment');
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/equipment`);
       
       if (!response.ok) {
         throw new Error('Failed to fetch equipment');
@@ -69,7 +69,7 @@ const EquipTable = ({ refreshKey, search, selectedType, selectedLocation }: Equi
     if (!confirmed) return;
 
     try {
-      const response = await fetch(`http://localhost:5000/api/equipment/${id}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/equipment/${id}`, {
         method: 'DELETE',
       });
 

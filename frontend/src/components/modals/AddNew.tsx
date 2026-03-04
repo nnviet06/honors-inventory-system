@@ -32,7 +32,7 @@ const AddNew = ({ onClose, onSuccess, locations: propLocations }: AddNewProps) =
         if (propLocations) {
             setLocations(propLocations);  
         } else {
-            fetch('http://localhost:5000/api/locations')  
+            fetch(`${import.meta.env.VITE_API_URL}/api/locations`)  
                 .then(res => res.json())
                 .then(data => setLocations(data))
                 .catch(() => setError('Failed to load locations'));
@@ -51,7 +51,7 @@ const AddNew = ({ onClose, onSuccess, locations: propLocations }: AddNewProps) =
             setLoading(true);
             setError('');
             
-            const response = await fetch('http://localhost:5000/api/equipment', {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/equipment`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
