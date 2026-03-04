@@ -52,8 +52,8 @@ const LocationTable = () => {
             setLoading(true);
             setError('');
             const [equipRes, locRes] = await Promise.all([
-                fetch('http://localhost:5000/api/equipment'),
-                fetch('http://localhost:5000/api/locations')
+                fetch(`${import.meta.env.VITE_API_URL}/api/equipment`),
+                fetch(`${import.meta.env.VITE_API_URL}/api/locations`)
             ]);
             if (!equipRes.ok || !locRes.ok) throw new Error('Failed to fetch data');
             setEquipment(await equipRes.json());
@@ -104,7 +104,7 @@ const LocationTable = () => {
     const handleDelete = async (id: number, model: string) => {
         if (!window.confirm(`Are you sure you want to delete ${model}?`)) return;
         try {
-            const response = await fetch(`http://localhost:5000/api/equipment/${id}`, { method: 'DELETE' });
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/equipment/${id}`, { method: 'DELETE' });
             if (!response.ok) throw new Error('Failed to delete equipment');
             fetchData();
         } catch (err) {

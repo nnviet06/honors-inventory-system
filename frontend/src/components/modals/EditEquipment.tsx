@@ -38,12 +38,12 @@ const EditEquipment = ({ item, onClose }: EditEquipmentProps) => {
     const [error, setError] = useState('');
 
     useEffect(() => {
-        fetch('http://localhost:5000/api/locations')
+        fetch(`${import.meta.env.VITE_API_URL}/api/locations`)
             .then(res => res.json())
             .then(data => setLocations(data))
             .catch(() => setError('Failed to load locations'));
 
-        fetch('http://localhost:5000/api/types')
+        fetch(`${import.meta.env.VITE_API_URL}/api/types`)
             .then(res => res.json())
             .then(data => setTypes(data))
             .catch(() => setError('Failed to load equipment types'));
@@ -61,7 +61,7 @@ const EditEquipment = ({ item, onClose }: EditEquipmentProps) => {
             setLoading(true);
             setError('');
 
-            const response = await fetch(`http://localhost:5000/api/equipment/${item.id}`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/equipment/${item.id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ location_id: newLocationId, model: newModel, equipment_type: newType }),

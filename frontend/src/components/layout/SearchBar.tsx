@@ -37,14 +37,14 @@ const [equipmentTypes, setEquipmentTypes] = useState<string[]>(['All']);
 const [locations, setLocations] = useState<string[]>(['All']);
 // Fetch equipment types for filter dropdown
 useEffect(() => {
-        fetch('http://localhost:5000/api/types')
+        fetch(`${import.meta.env.VITE_API_URL}/api/types`)
             .then(res => res.json())
             .then(data => setEquipmentTypes(['All', ...data])) 
             .catch(err => console.error('Failed to load types:', err));
     }, [refreshKey]);
 // Fetch locations for filter dropdown
 useEffect(() => {
-    fetch('http://localhost:5000/api/locations')
+    fetch(`${import.meta.env.VITE_API_URL}/api/locations`)
         .then(res => res.json())
         .then(data => {
         const buildingTypes = [...new Set(data.map((loc: {building_type: string}) => loc.building_type))] as string[];;
