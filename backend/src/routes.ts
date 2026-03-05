@@ -5,6 +5,7 @@
 
 import { Router } from 'express';
 import * as controller from './equipmentController';
+import * as dbController from './dbController';
 
 const router = Router();
 
