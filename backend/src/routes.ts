@@ -23,6 +23,6 @@ router.put('/equipment/:id', controller.updateEquipment);
 
 router.delete('/equipment/:id', controller.deleteEquipment);
 
-router.post('/reset', dbController.refreshDatabase);
+router.post('/reset', dbController.resetDatabase);
 
 export default router;
