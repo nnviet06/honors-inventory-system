@@ -5,6 +5,7 @@
 
 import { Router } from 'express';
 import * as controller from './equipmentController';
+import * as dbController from './dbController';
 
 const router = Router();
 
@@ -21,5 +22,7 @@ router.post('/equipment', controller.createEquipment);
 router.put('/equipment/:id', controller.updateEquipment);
 
 router.delete('/equipment/:id', controller.deleteEquipment);
+
+router.post('/reset', dbController.resetDatabase);
 
 export default router;
