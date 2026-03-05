@@ -6,6 +6,9 @@
 
 A full-stack equipment inventory management system. This application allows staff to track, manage, and transfer IT equipment across different locations within the Honors building. 
 
+## Live Demo
+https://honors-inventory-system.vercel.app/
+
 ## Project Overview
 
 This inventory system enables the Honors IT Team to:
