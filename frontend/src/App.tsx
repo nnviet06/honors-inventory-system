@@ -5,14 +5,19 @@
  */
 
 import styles from './App.module.css'
+import AuthPage from './pages/Auth/AuthPage'
 import NavBar from './components/layout/NavBar'
 import ItemsView from './pages/ItemsView'
 import LocationsView from './pages/LocationsView'
 import { Route, Routes } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 
 
 function App() {
+    const isLoggedIn = false; 
+    if (!isLoggedIn) {
+        return <AuthPage />;
+    }
     useEffect(() => {
         // Database refresh on frontend load
         const refreshDatabase = async () => {
