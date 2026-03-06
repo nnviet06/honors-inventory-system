@@ -10,7 +10,7 @@ import NavBar from './components/layout/NavBar'
 import ItemsView from './pages/ItemsView'
 import LocationsView from './pages/LocationsView'
 import { Route, Routes } from 'react-router-dom'
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 
 
 function App() {
