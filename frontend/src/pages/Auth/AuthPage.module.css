@@ -1,0 +1,140 @@
+.container {
+    min-height: 100vh;
+    background-color: #f5f5f5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Header - full width like NavBar */
+.header {
+    background-color: #006747;
+    width: calc(100% - 80px);
+    padding: 30px 60px;
+    border-radius: 16px;
+    margin: 20px 40px 0 40px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.title {
+    color: #ffffff;
+    font-size: 40px;
+    font-weight: bold;
+    margin: 0 0 6px 0;
+}
+
+.subtitle {
+    color: #006747;
+    font-size: 20px;
+    margin: 24px 0 16px 0;
+    font-weight: 600;
+}
+
+/* Card - wraps tab toggle + form */
+.card {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 700px;
+    margin-top: 40px;
+    padding: 50px 60px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Tab Toggle */
+.tabToggle {
+    display: flex;
+    gap: 0;
+    margin-bottom: 30px;
+}
+
+.tabButton {
+    flex: 1;
+    padding: 16px;
+    font-size: 19px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 2px solid #e0e0e0;
+    background-color: #ffffff;
+    color: #006747;
+    transition: all 0.3s ease;
+}
+
+.tabButton:first-child {
+    border-radius: 8px 0 0 8px;
+    border-right: 1px solid #e0e0e0;
+}
+
+.tabButton:last-child {
+    border-radius: 0 8px 8px 0;
+    border-left: 1px solid #e0e0e0;
+}
+
+.tabButton:hover {
+    background-color: #f5f5f5;
+    border-color: #006747;
+}
+
+.tabButton.active {
+    background-color: #006747;
+    color: #ffffff;
+    border-color: #006747;
+}
+
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.input {
+    width: 100%;
+    padding: 18px 20px;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 17px;
+    color: #333333;
+    margin-bottom: 20px;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+}
+
+.input::placeholder {
+    color: #999999;
+}
+
+.input:focus {
+    outline: none;
+    border-color: #CFC493;
+}
+
+/* Error Message */
+.error {
+    background-color: #fee;
+    color: #c33;
+    padding: 12px 14px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    border-left: 4px solid #c33;
+    font-size: 15px;
+}
+
+/* Submit Button */
+.submitButton {
+    width: 100%;
+    padding: 18px;
+    background-color: #CFC493;
+    color: #006747;
+    border: 2px solid #CFC493;
+    border-radius: 6px;
+    font-size: 19px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.submitButton:hover {
+    background-color: #b8ad7a;
+    border-color: #b8ad7a;
+}
