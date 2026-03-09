@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import styles from './AuthPage.module.css';
+import { authService } from '../../services/authService';
 
 
 
@@ -8,14 +9,22 @@ const AuthPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const handleSubmit = (e: any) => {
+    const handleSubmit = async (e: any) => {
         e.preventDefault();
         setError('');
-        console.log('Active Tab:', activeTab);
-        console.log('Email:', email);
-        console.log('Password:', password);
-    }
 
+        try {
+            if (activeTab === 'login') {
+                const data = await authService.signIn(email, password);
+                console.log('Login successful:', data);
+            } else {
+                const data = await authService.signUp(email, password);
+                console.log('Sign up successful:', data);
+            }
+        } catch (err: any) {
+            setError(err.message);
+        }
+    }
     return (
         <div className={styles.container}>
             <div className={styles.header}>
