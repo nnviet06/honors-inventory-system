@@ -1,7 +1,6 @@
 /**
  * Root Application Component
  * Sets up main layout structure and defines route configuration.
- * Routes: "/" and "/items" → ItemsView, "/locations" → LocationsView
  */
 
 import styles from './App.module.css'
@@ -10,14 +9,11 @@ import NavBar from './components/layout/NavBar'
 import ItemsView from './pages/ItemsView'
 import LocationsView from './pages/LocationsView'
 import { Route, Routes } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 
 function App() {
-    const isLoggedIn = false; 
-    if (!isLoggedIn) {
-        return <AuthPage />;
-    }
+    const [session, setSession] = useState(null);
     useEffect(() => {
         // Database refresh on frontend load
         const refreshDatabase = async () => {
@@ -30,6 +26,9 @@ function App() {
 
         refreshDatabase();
     }, []);
+    if (!session) {
+        return <AuthPage onLogin={setSession} />
+    }
 
     return (
         <div className={styles.app}>

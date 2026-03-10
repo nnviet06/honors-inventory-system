@@ -4,7 +4,7 @@ import { authService } from '../../services/authService';
 
 
 
-const AuthPage = () => {
+const AuthPage = ({ onLogin }: { onLogin: (data: any) => void }) => {
     const [activeTab, setActiveTab] = useState<'login' | 'signup'>('login');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -17,13 +17,16 @@ const AuthPage = () => {
             if (activeTab === 'login') {
                 const data = await authService.signIn(email, password);
                 console.log('Login successful:', data);
+                onLogin(data);
             } else {
                 const data = await authService.signUp(email, password);
                 console.log('Sign up successful:', data);
+                onLogin(data);
             }
         } catch (err: any) {
             setError(err.message);
         }
+        
     }
     return (
         <div className={styles.container}>
