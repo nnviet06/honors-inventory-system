@@ -10,6 +10,7 @@ import ItemsView from './pages/ItemsView'
 import LocationsView from './pages/LocationsView'
 import { Route, Routes } from 'react-router-dom'
 import { useEffect, useState } from 'react'
+import { setToken } from './services/equipmentService'
 
 
 function App() {
@@ -26,8 +27,12 @@ function App() {
 
         refreshDatabase();
     }, []);
+    const handleLogin = (data: any) => {
+        setSession(data);
+        setToken(data.session.access_token);
+    };
     if (!session) {
-        return <AuthPage onLogin={setSession} />
+        return <AuthPage onLogin={handleLogin} />
     }
 
     return (
