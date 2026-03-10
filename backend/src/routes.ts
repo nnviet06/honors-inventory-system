@@ -4,11 +4,20 @@
  */
 
 import { Router } from 'express';
+import { authMiddleware } from './authMiddleware'
 import * as controller from './equipmentController';
 import * as dbController from './dbController';
 import * as authController from './authController';
 
+
 const router = Router();
+
+// Authentication Routes
+router.post('/auth/signup', authController.signUp);
+
+router.post('/auth/signin', authController.signIn);
+
+router.use(authMiddleware); // Apply authentication middleware to all routes
 
 // Equipment Routes
 router.get('/equipment', controller.getAllEquipment);
@@ -28,9 +37,6 @@ router.delete('/equipment/:id', controller.deleteEquipment);
 // Database Reset Route
 router.post('/reset', dbController.resetDatabase);
 
-// Authentication Routes
-router.post('/auth/signup', authController.signUp);
 
-router.post('/auth/signin', authController.signIn);
 
 export default router;
