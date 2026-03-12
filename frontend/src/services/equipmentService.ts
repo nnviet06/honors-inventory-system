@@ -2,15 +2,26 @@
 
 const BASE_URL = `${import.meta.env.VITE_API_URL}`;
 
-let token = null;
+let token: string | null = null;
 
 export const setToken = (newToken: string | null) => {
     token = newToken;
 }
 
+const getHeaders = (): Record<string, string> => {
+    const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+    if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+    }
+    return headers;
+};
+
 export const getAllEquipment = async () => {
+    
     try {
-      const response = await fetch(`${BASE_URL}/api/equipment`);
+      const response = await fetch(`${BASE_URL}/api/equipment`, {
+        headers: getHeaders(),
+      });
       
       if (!response.ok) {
         throw new Error('Failed to fetch equipment');
@@ -24,7 +35,9 @@ export const getAllEquipment = async () => {
 
 export const getAllLocations = async () => {
     try {
-      const response = await fetch(`${BASE_URL}/api/locations`);
+      const response = await fetch(`${BASE_URL}/api/locations`, {
+        headers: getHeaders(),
+      });
         if (!response.ok) {
             throw new Error('Failed to fetch locations');
         }
@@ -37,7 +50,9 @@ export const getAllLocations = async () => {
 
 export const getAllTypes = async () => {
     try {
-      const response = await fetch(`${BASE_URL}/api/types`);
+      const response = await fetch(`${BASE_URL}/api/types`, {
+        headers: getHeaders(),
+      });
         if (!response.ok) {
             throw new Error('Failed to fetch equipment types');
         }
@@ -51,6 +66,7 @@ export const getAllTypes = async () => {
 export const deleteEquipment = async (id: number) => {
     try {
       const response = await fetch(`${BASE_URL}/api/equipment/${id}`, {
+        headers: getHeaders(),
         method: 'DELETE',
       });
 
@@ -65,9 +81,9 @@ export const deleteEquipment = async (id: number) => {
 
 export const createEquipment = async (model: string, equipmentType: string, locationId: number) => {
     try {
-        const response = await fetch(`${BASE_URL}/api/equipment`, { 
+        const response = await fetch(`${BASE_URL}/api/equipment`, {
+            headers: getHeaders(), 
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ model, equipment_type: equipmentType, location_id: locationId }),
         });
         if (!response.ok) {
@@ -83,8 +99,8 @@ export const createEquipment = async (model: string, equipmentType: string, loca
 export const updateEquipment = async (id: number, model: string, equipmentType: string, locationId: number) => {
     try {
         const response = await fetch(`${BASE_URL}/api/equipment/${id}`, {
+            headers: getHeaders(),
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ model, equipment_type: equipmentType, location_id: locationId }),
         });
         if (!response.ok) {
