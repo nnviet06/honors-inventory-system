@@ -7,6 +7,7 @@
 
 import { useState, useEffect } from 'react';
 import styles from './EditEquipment.module.css';
+import { getAllLocations, getAllTypes, updateEquipment } from '../../services/equipmentService';
 
 interface Equipment {
     id: number;
@@ -38,13 +39,11 @@ const EditEquipment = ({ item, onClose }: EditEquipmentProps) => {
     const [error, setError] = useState('');
 
     useEffect(() => {
-        fetch(`${import.meta.env.VITE_API_URL}/api/locations`)
-            .then(res => res.json())
+        getAllLocations()
             .then(data => setLocations(data))
             .catch(() => setError('Failed to load locations'));
 
-        fetch(`${import.meta.env.VITE_API_URL}/api/types`)
-            .then(res => res.json())
+        getAllTypes()
             .then(data => setTypes(data))
             .catch(() => setError('Failed to load equipment types'));
     }, []);
@@ -61,13 +60,7 @@ const EditEquipment = ({ item, onClose }: EditEquipmentProps) => {
             setLoading(true);
             setError('');
 
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/equipment/${item.id}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ location_id: newLocationId, model: newModel, equipment_type: newType }),
-            });
-
-            if (!response.ok) throw new Error('Failed to update equipment details');
+            await updateEquipment(item.id, newModel, newType, newLocationId);
             onClose();
         } catch (err) {
             setError(err instanceof Error ? err.message : 'Failed to update equipment details');

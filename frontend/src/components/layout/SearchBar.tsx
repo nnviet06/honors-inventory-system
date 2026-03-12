@@ -9,6 +9,7 @@ import {useEffect, useState} from 'react';
 import styles from './SearchBar.module.css';
 import AddNew from '../modals/AddNew';
 import Filter from '../modals/Filter';
+import { getAllLocations, getAllTypes } from '../../services/equipmentService';
 
 const SearchBar = ({ onRefresh, onSearch, onTypeChange, selectedType, selectedLocation, onLocationChange, refreshKey }: { 
     onRefresh: () => void;
@@ -37,15 +38,13 @@ const [equipmentTypes, setEquipmentTypes] = useState<string[]>(['All']);
 const [locations, setLocations] = useState<string[]>(['All']);
 // Fetch equipment types for filter dropdown
 useEffect(() => {
-        fetch(`${import.meta.env.VITE_API_URL}/api/types`)
-            .then(res => res.json())
-            .then(data => setEquipmentTypes(['All', ...data])) 
-            .catch(err => console.error('Failed to load types:', err));
-    }, [refreshKey]);
+    getAllTypes()
+        .then(data => setEquipmentTypes(['All', ...data])) 
+        .catch(err => console.error('Failed to load types:', err));
+}, [refreshKey]);
 // Fetch locations for filter dropdown
 useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/api/locations`)
-        .then(res => res.json())
+    getAllLocations()
         .then(data => {
         const buildingTypes = [...new Set(data.map((loc: {building_type: string}) => loc.building_type))] as string[];;
         setLocations(['All', ...buildingTypes]);

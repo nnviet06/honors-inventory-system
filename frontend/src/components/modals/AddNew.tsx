@@ -7,6 +7,7 @@
 
 import { useState, useEffect } from 'react';
 import styles from './AddNew.module.css';
+import { getAllLocations, createEquipment } from '../../services/equipmentService';
 
 interface AddNewProps {
     onClose: () => void;
@@ -32,8 +33,7 @@ const AddNew = ({ onClose, onSuccess, locations: propLocations }: AddNewProps) =
         if (propLocations) {
             setLocations(propLocations);  
         } else {
-            fetch(`${import.meta.env.VITE_API_URL}/api/locations`)  
-                .then(res => res.json())
+            getAllLocations() 
                 .then(data => setLocations(data))
                 .catch(() => setError('Failed to load locations'));
         }
@@ -50,18 +50,7 @@ const AddNew = ({ onClose, onSuccess, locations: propLocations }: AddNewProps) =
         try {
             setLoading(true);
             setError('');
-            
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/equipment`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    model: model.trim(),
-                    equipment_type: equipmentType.trim(),
-                    location_id: locationId,
-                }),
-            });
-
-            if (!response.ok) throw new Error('Failed to add equipment');
+            await createEquipment(model, equipmentType, locationId);
             onSuccess();
             onClose();
         } catch (err) {
