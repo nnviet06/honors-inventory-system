@@ -41,9 +41,9 @@ This inventory system enables the Honors IT Team to:
 
 ## Technology Stack
 
-### Frontend: React + Vite + TypeScript + CSS Modules
+### Frontend: React + Vite + TypeScript + CSS Modules (deployed on Vercel)
 
-### Backend: Node.js + Express + TypeScript
+### Backend: Node.js + Express + TypeScript (deployed on Render)
 
 ### Database: PostgreSQL (hosted on Supabase)
 
