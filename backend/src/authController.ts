@@ -11,6 +11,14 @@ export const signUp = async (req: Request, res: Response) => {
     if (error) {
       return res.status(400).json({ error: error.message })
     }
+    if (!data.user) {
+      return res.status(500).json({ error: 'User creation failed' })
+    }
+    const { error: seedError } = await supabase.rpc('seed_user_equipment', { p_user_id: data.user.id })
+
+    if (seedError) {
+      return res.status(500).json({ error: 'Failed to initialize user equipment' })
+    }
 
     res.status(201).json({ user: data.user, session: data.session })
   } catch (error) {

@@ -12,9 +12,11 @@ import supabase from './database';
 
 export const getAllEquipment = async (req: Request, res: Response) => {
   try {
+    const userId = (req as any).user.id
     const { data, error } = await supabase
       .from('equipment')
-      .select('*, locations(room_name, building_type)');
+      .select('*, locations(room_name, building_type)')
+      .eq('user_id', userId);
     if (error) throw error;
     const flattened = data.map(item => {
         const { locations, ...rest } = item;
@@ -28,11 +30,13 @@ export const getAllEquipment = async (req: Request, res: Response) => {
 
 export const getEquipmentById = async (req: Request, res: Response) => {
   try {
+    const userId = (req as any).user.id
     const { id } = req.params;
     const { data, error } = await supabase
       .from('equipment')
       .select('*, locations(room_name, building_type)')
-      .eq('id', id);
+      .eq('id', id)
+      .eq('user_id', userId)
     if (error) throw error;
     const flattened = data.map(item => {
         const { locations, ...rest } = item;
@@ -46,6 +50,7 @@ export const getEquipmentById = async (req: Request, res: Response) => {
 
 export const createEquipment = async (req: Request, res: Response) => {
   try {
+    const userId = (req as any).user.id
     const { model, equipment_type, location_id } = req.body;
     if (!model || !equipment_type || !location_id) {
         return res.status(400).json({ error: 'Missing required fields' });
@@ -53,7 +58,7 @@ export const createEquipment = async (req: Request, res: Response) => {
     const { data, error } = await supabase
       .from('equipment')
       .insert([
-        { model, equipment_type, location_id }
+        { model, equipment_type, location_id, user_id: userId }
       ]);
     if (error) throw error;
     res.status(201).json(data);
@@ -64,6 +69,7 @@ export const createEquipment = async (req: Request, res: Response) => {
 
 export const updateEquipment = async (req: Request, res: Response) => {
   try {
+    const userId = (req as any).user.id
     const { id } = req.params;
     const { model, equipment_type, location_id } = req.body;
     const { data, error } = await supabase
@@ -73,7 +79,8 @@ export const updateEquipment = async (req: Request, res: Response) => {
         equipment_type,
         location_id
       })
-      .eq('id', id);
+      .eq('id', id)
+      .eq('user_id', userId);
     if (error) throw error;
     res.status(200).json(data);
   } catch (error) {
@@ -83,11 +90,13 @@ export const updateEquipment = async (req: Request, res: Response) => {
 
 export const deleteEquipment = async (req: Request, res: Response) => {
   try {
+    const userId = (req as any).user.id
     const { id } = req.params;
     const { data, error } = await supabase
       .from('equipment')
       .delete()
-      .eq('id', id);
+      .eq('id', id)
+      .eq('user_id', userId);
     if (error) throw error;
     res.status(200).json(data);
   } catch (error) {
@@ -109,8 +118,10 @@ export const getAllLocations = async (req: Request, res: Response) => {
 
 export const getAllTypes = async (req: Request, res: Response) => {
   try {
+    const userId = (req as any).user.id
     const { data, error } = await supabase
-        .from('equipment').select('equipment_type');
+        .from('equipment').select('equipment_type')
+        .eq('user_id', userId);
     if (error) throw error;
     const types = [...new Set(data.map(item => item.equipment_type))];
     res.status(200).json(types);

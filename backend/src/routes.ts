@@ -6,7 +6,7 @@
 import { Router } from 'express';
 import { authMiddleware } from './authMiddleware'
 import * as controller from './equipmentController';
-import * as dbController from './dbController';
+// import * as dbController from './dbController';
 import * as authController from './authController';
 
 
@@ -35,7 +35,7 @@ router.put('/equipment/:id', controller.updateEquipment);
 router.delete('/equipment/:id', controller.deleteEquipment);
 
 // Database Reset Route
-router.post('/reset', dbController.resetDatabase);
+// router.post('/reset', dbController.resetDatabase);
 
 
 
