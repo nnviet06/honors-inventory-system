@@ -8,6 +8,7 @@
 import { useState, useEffect } from 'react';
 import styles from './EquipTable.module.css';
 import EditEquipment from '../modals/EditEquipment';
+import { getAllEquipment, deleteEquipment } from '../../services/equipmentService';
 
 interface Equipment {
   id: number;
@@ -39,13 +40,7 @@ const EquipTable = ({ refreshKey, search, selectedType, selectedLocation }: Equi
   const fetchEquipment = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/equipment`);
-      
-      if (!response.ok) {
-        throw new Error('Failed to fetch equipment');
-      }
-      
-      const data = await response.json();
+      const data = await getAllEquipment();
       setEquipmentList(data);
       setError('');
     } catch (err) {
@@ -65,22 +60,13 @@ const EquipTable = ({ refreshKey, search, selectedType, selectedLocation }: Equi
     const confirmed = window.confirm(
       `Are you sure you want to delete ${model}?`
     );
-
     if (!confirmed) return;
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/equipment/${id}`, {
-        method: 'DELETE',
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to delete equipment');
-      }
-
+      await deleteEquipment(id);
       fetchEquipment();
     } catch (err) {
       alert(err instanceof Error ? err.message : 'Failed to delete equipment');
-      console.error('Error deleting equipment:', err);
     }
   };
 

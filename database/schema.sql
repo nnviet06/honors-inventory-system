@@ -26,6 +26,7 @@ CREATE TABLE equipment (
     model VARCHAR(255) NOT NULL,
     equipment_type VARCHAR(100) NOT NULL,
     location_id INTEGER NOT NULL,
+    user_id UUID REFERENCES auth.users(id),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (location_id) REFERENCES locations(id) ON DELETE CASCADE
@@ -39,3 +40,6 @@ CREATE INDEX idx_equipment_location ON equipment(location_id);
 
 -- Index on equipment_type for faster filtering by type
 CREATE INDEX idx_equipment_type ON equipment(equipment_type);
+
+-- Index on user_id for faster queries when filtering by user
+CREATE INDEX idx_equipment_user ON equipment(user_id);

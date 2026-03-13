@@ -11,6 +11,7 @@ import tabStyles from './LocationTable.module.css';
 import AddNew from '../modals/AddNew';
 import EditEquipment from '../modals/EditEquipment';
 import LocationGroup from './LocationGroup';
+import { deleteEquipment, getAllEquipment, getAllLocations } from '../../services/equipmentService';
 
 interface Equipment {
     id: number;
@@ -51,13 +52,9 @@ const LocationTable = () => {
         try {
             setLoading(true);
             setError('');
-            const [equipRes, locRes] = await Promise.all([
-                fetch(`${import.meta.env.VITE_API_URL}/api/equipment`),
-                fetch(`${import.meta.env.VITE_API_URL}/api/locations`)
-            ]);
-            if (!equipRes.ok || !locRes.ok) throw new Error('Failed to fetch data');
-            setEquipment(await equipRes.json());
-            setLocations(await locRes.json());
+            const [equipRes, locRes] = await Promise.all([getAllEquipment(), getAllLocations()]);
+            setEquipment(equipRes);
+            setLocations(locRes);
         } catch (err) {
             setError(err instanceof Error ? err.message : 'An error occurred');
         } finally {
@@ -103,9 +100,9 @@ const LocationTable = () => {
 
     const handleDelete = async (id: number, model: string) => {
         if (!window.confirm(`Are you sure you want to delete ${model}?`)) return;
+        
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/equipment/${id}`, { method: 'DELETE' });
-            if (!response.ok) throw new Error('Failed to delete equipment');
+            await deleteEquipment(id);
             fetchData();
         } catch (err) {
             alert(err instanceof Error ? err.message : 'Failed to delete equipment');
