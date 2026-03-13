@@ -62,39 +62,7 @@ This inventory system enables the Honors IT Team to:
 - **Error Handling** - User-friendly error messages
 - **Auto-refresh** - Table updates after add/edit/delete
 - **USF Theme** 
-
-## Feature Highlights
-
-### ✏️ Edit Equipment
-- Edit all equipment details: Model, Type, and Location
-- Dropdown selection for Type and Location
-- Validation: requires at least one field to change
-- Real-time update after save
-
-### 🔍 Search
-- Search equipment by model name
-- Click Search button to filter results
-- Works combined with Filter
-
-### 🎛️ Filter
-- Dropdown with two options: Type and Location
-- Types: Monitor, Laptop, Printer, Keyboard, Mouse
-- Locations: Warehouse, Classroom, Office
-- Real-time data sync with refreshKey
-
-### 📍 Separate Table Views
-- **By Items**: Traditional table view of all equipment
-- **By Location**: Floor-by-floor navigation (Floor 1-5)
-  - Collapsible sections by building type
-  - Edit and Delete actions per location
-  - Visual equipment count per location
-- **Data Sync**: Changes in one view reflect in the other (shared database)
-
-### 🧭 Routing
-- React Router for navigation between views
-- `/items` - By Items view (default)
-- `/locations` - By Location view
-- NavBar buttons for easy switching
+- **Authentication** - Email/password signup and login with per-user data isolation
 
 ## Installation
 
@@ -128,13 +96,18 @@ SUPABASE_URL=your_project_url_here
 PORT=5000
 ```
 
+Create a `.env` file in the `frontend/` directory:
+```
+VITE_API_URL=http://localhost:5000
+```
+
 Get your credentials from [Supabase](https://supabase.com) → Project Settings → API
 
 ### 5. Setup Database
 
 1. In Supabase dashboard, go to **SQL Editor**
 2. Run the contents of `database/schema.sql`
-3. Run the contents of `database/sample.sql`
+3. Run the contents of `database/sample.sql` (locations only - equipment is auto-seeded per user on signup)
 ---
 
 ## How to Run
@@ -192,9 +165,11 @@ VITE v7.x.x ready in XXXms
 - Local URL displayed
 - No error messages
 
+
 ### In Browser (http://localhost:5173):
 **You should see:**
-- Equipment table with 20 sample items
+- Authentication page with Login/Sign Up tabs
+- Sign up with email and password → redirects to equipment table with 20 sample items
 - No "Failed to fetch" errors in console (F12)
 
 **If everything above checks out → Your system is ready**
