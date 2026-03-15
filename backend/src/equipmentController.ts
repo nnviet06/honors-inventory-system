@@ -55,10 +55,18 @@ export const createEquipment = async (req: Request, res: Response) => {
     if (!model || !equipment_type || !location_id) {
         return res.status(400).json({ error: 'Missing required fields' });
     }
-    const { data, error } = await supabase
+    const { data: maxSeqData, error: seqError } = await supabase
       .from('equipment')
-      .insert([
-        { model, equipment_type, location_id, user_id: userId }
+      .select ('user_seq')
+      .eq('user_id', userId)
+      .order('user_seq', { ascending: false })
+      .limit(1);
+    if (seqError) throw seqError;
+    const nextSeq = (maxSeqData.length > 0 ? maxSeqData[0].user_seq : 0) + 1;
+    const { data, error } = await supabase
+    .from('equipment')
+    .insert([
+        { model, equipment_type, location_id, user_id: userId, user_seq: nextSeq }
       ]);
     if (error) throw error;
     res.status(201).json(data);
