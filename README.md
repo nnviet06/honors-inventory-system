@@ -4,7 +4,7 @@
 
 > This `main` branch rebuilds the backend using PostgreSQL for scalability.
 
-A full-stack equipment inventory management system. This application allows staff to track, manage, and transfer IT equipment across different locations within the Honors building. 
+A full-stack equipment inventory management system. This application allows staff to track, manage, and transfer IT equipment across different locations within the Honors building.
 
 ## Live Demo
 https://honors-inventory-system.vercel.app/
@@ -49,22 +49,18 @@ This inventory system enables the Honors IT Team to:
 
 ## Features
 
+- **Authentication** - Email/password signup and login with per-user data isolation
+- **"By Items" View** - Traditional table view of all equipment
+- **"By Location" View** - Floor-by-floor navigation with collapsible sections
 - **View Equipment** - Display all equipment in a table
 - **Add Equipment** - Modal form to add new items
 - **Edit Equipment** - Edit model, type, and location of equipment
 - **Delete Equipment** - Remove items from inventory
-- **Search Button** - Search equipment by model name
-- **Filter Button** - Filter by type and building location  
-- **"By Items" View** - Traditional table view of all equipment
-- **"By Location" View** - Floor-by-floor navigation with collapsible sections
-- **Routing** - React Router navigation between By Items and By Location views
-- **Loading States** - Visual feedback during API calls
-- **Error Handling** - User-friendly error messages
-- **Auto-refresh** - Table updates after add/edit/delete
-- **USF Theme** 
-- **Authentication** - Email/password signup and login with per-user data isolation
+- **Search & Filter Button** - Search equipment by model name and filter by type and building location
 
-## Installation
+- **USF Theme** 
+
+## Installation (if you want to test it out by yourself)
 
 ### 1. Clone the Repository
 
@@ -157,7 +153,7 @@ Server running on http://localhost:5000
 **Expected output:**
 ```
 VITE v7.x.x ready in XXXms
-➜  Local:   http://localhost:5173/
+➜  Local: http://localhost:5173/
 ➜  Network: use --host to expose
 ```
 **Key indicators:**
@@ -174,6 +170,8 @@ VITE v7.x.x ready in XXXms
 
 **If everything above checks out → Your system is ready**
 
-## Acknowledgments
+## Future planning
 
-- CSS and database are AI powered to save time.
+- Multiply the data size by many times.
+- Implement Redis caching.
+
