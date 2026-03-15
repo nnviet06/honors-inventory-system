@@ -27,9 +27,11 @@ CREATE TABLE equipment (
     equipment_type VARCHAR(100) NOT NULL,
     location_id INTEGER NOT NULL,
     user_id UUID REFERENCES auth.users(id),
+    user_seq INTEGER NOT NULL, -- Sequence number for equipment added by the same user
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (location_id) REFERENCES locations(id) ON DELETE CASCADE
+    FOREIGN KEY (location_id) REFERENCES locations(id) ON DELETE CASCADE,
+    UNIQUE(user_id, user_seq)
 );
 
 -- ========================================
