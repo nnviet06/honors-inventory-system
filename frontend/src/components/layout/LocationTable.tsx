@@ -15,6 +15,7 @@ import { deleteEquipment, getAllEquipment, getAllLocations } from '../../service
 
 interface Equipment {
     id: number;
+    user_seq: number;
     model: string;
     equipment_type: string;
     location_id: number;
