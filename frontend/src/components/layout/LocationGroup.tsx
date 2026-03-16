@@ -11,6 +11,7 @@ import tabStyles from './LocationTable.module.css';
 interface Equipment {
     id: number;
     model: string;
+    user_seq: number;
     equipment_type: string;
     location_id: number;
     room_name: string;
@@ -68,7 +69,7 @@ const LocationGroup = ({
                             <tbody>
                                 {equipment.map(item => (
                                     <tr key={item.id}>
-                                        <td className={tabStyles.idCell}>{item.id}</td> 
+                                        <td className={tabStyles.idCell}>{item.user_seq}</td> 
                                         <td>{item.model}</td>
                                         <td>{item.equipment_type}</td>
                                         <td>

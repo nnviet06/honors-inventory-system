@@ -12,6 +12,7 @@ import { getAllEquipment, deleteEquipment } from '../../services/equipmentServic
 
 interface Equipment {
   id: number;
+  user_seq: number;
   model: string;
   equipment_type: string;
   location_id: number;
@@ -129,7 +130,7 @@ const EquipTable = ({ refreshKey, search, selectedType, selectedLocation }: Equi
               ) : (
                 filteredEquipment.map((item) => (
                   <tr key={item.id}>
-                    <td className={styles.idCell}>{item.id}</td>
+                    <td className={styles.idCell}>{item.user_seq}</td>
                     <td>{item.model}</td>
                     <td>{item.equipment_type}</td>
                     <td>
