@@ -55,14 +55,19 @@ export const createEquipment = async (req: Request, res: Response) => {
     if (!model || !equipment_type || !location_id) {
         return res.status(400).json({ error: 'Missing required fields' });
     }
-    const { data: maxSeqData, error: seqError } = await supabase
-      .from('equipment')
-      .select ('user_seq')
+    const { data: counterData, error: counterError } = await supabase
+      .from('user_seq_counters')
+      .select('last_seq')
       .eq('user_id', userId)
-      .order('user_seq', { ascending: false })
-      .limit(1);
-    if (seqError) throw seqError;
-    const nextSeq = (maxSeqData.length > 0 ? maxSeqData[0].user_seq : 0) + 1;
+      .single();
+    if (counterError) throw counterError;
+    const nextSeq = counterData.last_seq + 1;
+
+    const { error: updateError } = await supabase
+      .from('user_seq_counters')
+      .update({ last_seq: nextSeq })
+      .eq('user_id', userId);
+    if (updateError) throw updateError;
     const { data, error } = await supabase
     .from('equipment')
     .insert([

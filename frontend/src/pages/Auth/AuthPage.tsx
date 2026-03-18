@@ -28,6 +28,12 @@ const AuthPage = ({ onLogin }: { onLogin: (data: any) => void }) => {
         }
         
     }
+    const handleTabChange = (tab: 'login' | 'signup') => {
+        setActiveTab(tab);
+        setEmail('');
+        setPassword('');
+        setError('');
+    }
     return (
         <div className={styles.container}>
             <div className={styles.header}>
@@ -38,13 +44,13 @@ const AuthPage = ({ onLogin }: { onLogin: (data: any) => void }) => {
             <div className={styles.tabToggle}>
                 <button
                     className={`${styles.tabButton} ${activeTab === 'login' ? styles.active : ''}`}
-                    onClick={() => setActiveTab('login')}
+                    onClick={() => handleTabChange('login')}
                 >
                     Login
                 </button>
                 <button
                     className={`${styles.tabButton} ${activeTab === 'signup' ? styles.active : ''}`}
-                    onClick={() => setActiveTab('signup')}
+                    onClick={() => handleTabChange('signup')}
                 >
                     Sign Up
                 </button>
