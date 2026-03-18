@@ -2,6 +2,7 @@
  * Navigation Bar Component
  * Displays application header and navigation links.
  * Provides routing between "By Items" and "By Location" views.
+ * Provides a Logout button
  */
 
 import { Link } from 'react-router-dom';
@@ -18,7 +19,7 @@ const NavBar = ({ onLogout }: { onLogout: () => void }) => {
             <div className={styles.navButtons}>
             <Link to="/items" className={styles.navButton}> By Items </Link>
             <Link to="/locations" className={styles.navButton}> By Location </Link>
-            <button onClick={onLogout} className={styles.logoutButton}>Logout</button>
+            <button onClick={onLogout} className={styles.logoutButton}> Logout </button>
             
 
             </div>
