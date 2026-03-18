@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import styles from './NavBar.module.css';
 
 
-const NavBar = () => {
+const NavBar = ({ onLogout }: { onLogout: () => void }) => {
     // Simple NavBar
     // The Main Page is already on By Items view
 
@@ -18,6 +18,9 @@ const NavBar = () => {
             <div className={styles.navButtons}>
             <Link to="/items" className={styles.navButton}> By Items </Link>
             <Link to="/locations" className={styles.navButton}> By Location </Link>
+            <button onClick={onLogout} className={styles.logoutButton}>Logout</button>
+            
+
             </div>
         </nav>
     );

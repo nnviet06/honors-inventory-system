@@ -15,6 +15,10 @@ import { setToken } from './services/equipmentService'
 
 function App() {
     const [session, setSession] = useState(null);
+    const handleLogout = () => {
+        setSession(null);
+        setToken('');
+    }
     const handleLogin = (data: any) => {
         setSession(data);
         setToken(data.session.access_token);
@@ -22,10 +26,9 @@ function App() {
     if (!session) {
         return <AuthPage onLogin={handleLogin} />
     }
-
     return (
         <div className={styles.app}>
-            <NavBar />  
+            <NavBar onLogout={handleLogout} />
             <Routes>
                 <Route path="/" element={<ItemsView/>} />
                 <Route path="/items" element={<ItemsView/>} />
