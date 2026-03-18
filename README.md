@@ -5,6 +5,7 @@
 > This `main` branch rebuilds the backend using PostgreSQL for scalability.
 
 A full-stack equipment inventory management system. This application allows staff to track, manage, and transfer IT equipment across different locations within the Honors building.
+Built for the Honors IT Team ❤
 
 ## Live Demo
 https://honors-inventory-system.vercel.app/
@@ -16,8 +17,13 @@ This inventory system enables the Honors IT Team to:
 - **MANAGE LOCATIONS** across 5 floors (Warehouses, Classrooms, Offices)
 - **ADD NEW** to inventory
 - **DELETE** broken equipment
+- **EDIT** equipment details
+- **AUTHENTICATE** per-user login with data isolation
 ---
 ## Demo Screenshots
+
+### Auth
+![Auth](./projectdemo/auth.jpg)
 
 ### Items View
 ![Items View](./projectdemo/byitemsview.jpg)
@@ -52,13 +58,10 @@ This inventory system enables the Honors IT Team to:
 - **Authentication** - Email/password signup and login with per-user data isolation
 - **"By Items" View** - Traditional table view of all equipment
 - **"By Location" View** - Floor-by-floor navigation with collapsible sections
-- **View Equipment** - Display all equipment in a table
 - **Add Equipment** - Modal form to add new items
 - **Edit Equipment** - Edit model, type, and location of equipment
 - **Delete Equipment** - Remove items from inventory
 - **Search & Filter Button** - Search equipment by model name and filter by type and building location
-
-- **USF Theme** 
 
 ## Installation (if you want to test it out by yourself)
 
@@ -171,7 +174,8 @@ VITE v7.x.x ready in XXXms
 **If everything above checks out → Your system is ready**
 
 ## Future planning
-
+- Select All + Bulk Delete.
+- Guest/Demo mode.
 - Multiply the data size by many times.
 - Implement Redis caching.
 
