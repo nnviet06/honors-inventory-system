@@ -124,11 +124,34 @@ const EquipTable = ({ refreshKey, search, selectedType, selectedLocation }: Equi
       setSelectedIds(new Set(filteredEquipment.map(item => item.id)));
     }
   };
-  
+
+  const handleBulkDelete = async () => {
+    const count = selectedIds.size;
+    const confirmed = window.confirm(
+      `Are you sure you want to delete ${count} item(s)?`
+    );
+    if (!confirmed) return;
+
+    try {
+      // call bulkDeleteEquipment API
+      setSelectedIds(new Set());
+      fetchEquipment();
+    } catch (err) {
+      alert(err instanceof Error ? err.message : 'Failed to delete equipment');
+    }
+  };
+
   return (
     <>
       <div className={styles.tableContainer}>
         <div className={styles.table}>
+          <button
+              className={styles.bulkDeleteButton}
+              disabled={selectedIds.size === 0}
+              onClick={handleBulkDelete}
+            >
+              Delete Selected ({selectedIds.size})
+          </button>
           <table>
             <thead>
               <tr>
