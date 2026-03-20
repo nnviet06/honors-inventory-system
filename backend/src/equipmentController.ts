@@ -142,3 +142,7 @@ export const getAllTypes = async (req: Request, res: Response) => {
     res.status(500).json({ error: 'Failed to retrieve types' });
   }
 }
+
+// export const bulkDelete = async (req: Request, res: Response) => {
+
+// }
