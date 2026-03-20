@@ -33,10 +33,15 @@ const EquipTable = ({ refreshKey, search, selectedType, selectedLocation }: Equi
   const [showEditEquipmentModal, setShowEditEquipmentModal] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
 
   useEffect(() => {
     fetchEquipment();
   }, [refreshKey]);
+
+  useEffect(() => {
+    setSelectedIds(new Set());
+  }, [selectedType, selectedLocation, search]);
 
   const fetchEquipment = async () => {
     try {
@@ -104,8 +109,22 @@ const EquipTable = ({ refreshKey, search, selectedType, selectedLocation }: Equi
       return typeMatch && locationMatch && searchMatch;
   });
 
-  
+  const toggleSelect = (id: number) => {
+    setSelectedIds(prev => {
+      const newSet = new Set(prev);
+      newSet.has(id) ? newSet.delete(id) : newSet.add(id);
+      return newSet;
+    });
+  };
 
+  const toggleSelectAll = () => {
+    if (selectedIds.size === filteredEquipment.length) {
+      setSelectedIds(new Set());
+    } else {
+      setSelectedIds(new Set(filteredEquipment.map(item => item.id)));
+    }
+  };
+  
   return (
     <>
       <div className={styles.tableContainer}>
@@ -113,6 +132,13 @@ const EquipTable = ({ refreshKey, search, selectedType, selectedLocation }: Equi
           <table>
             <thead>
               <tr>
+                <th>
+                  <input
+                    type="checkbox"
+                    checked={selectedIds.size === filteredEquipment.length && filteredEquipment.length > 0}
+                    onChange={toggleSelectAll}
+                  />
+                </th>
                 <th>ID</th>
                 <th>Name</th>
                 <th>Type</th>
@@ -123,13 +149,20 @@ const EquipTable = ({ refreshKey, search, selectedType, selectedLocation }: Equi
             <tbody>
               {filteredEquipment.length === 0 ? (
                 <tr>
-                  <td colSpan={5} className={styles.emptyText}>
+                  <td colSpan={6} className={styles.emptyText}>
                     No equipment found. Add new equipment to get started.
                   </td>
                 </tr>
               ) : (
                 filteredEquipment.map((item) => (
                   <tr key={item.id}>
+                    <td>
+                      <input
+                        type="checkbox"
+                        checked={selectedIds.has(item.id)}
+                        onChange={() => toggleSelect(item.id)}
+                      />
+                    </td>
                     <td className={styles.idCell}>{item.user_seq}</td>
                     <td>{item.model}</td>
                     <td>{item.equipment_type}</td>
