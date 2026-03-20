@@ -155,14 +155,14 @@ const EquipTable = ({ refreshKey, search, selectedType, selectedLocation }: Equi
           <table>
             <thead>
               <tr>
-                <th>
-                  <input
+                <th className={styles.checkboxCell}>
+                  <input 
                     type="checkbox"
                     checked={selectedIds.size === filteredEquipment.length && filteredEquipment.length > 0}
                     onChange={toggleSelectAll}
                   />
                 </th>
-                <th>ID</th>
+                <th className={styles.idHeader}>ID</th>
                 <th>Name</th>
                 <th>Type</th>
                 <th>Location</th>
@@ -179,7 +179,7 @@ const EquipTable = ({ refreshKey, search, selectedType, selectedLocation }: Equi
               ) : (
                 filteredEquipment.map((item) => (
                   <tr key={item.id}>
-                    <td>
+                    <td className={styles.checkboxCell}>
                       <input
                         type="checkbox"
                         checked={selectedIds.has(item.id)}

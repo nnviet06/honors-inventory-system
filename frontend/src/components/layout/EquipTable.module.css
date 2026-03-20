@@ -64,6 +64,10 @@ table th:last-child {
     text-align: center;
 }
 
+.idHeader {
+  text-align: center;
+}
+
 .editButton {
     background-color: #006747;
     color: #FFFFFF;
@@ -108,4 +112,29 @@ table th:last-child {
 
 .errorText {
     color: #dc3545;
+}
+
+.checkboxCell {
+  width: 50px;
+  text-align: center;
+}
+
+.bulkDeleteButton {
+  background-color: #c33;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 12px;
+}
+
+.bulkDeleteButton:hover:not(:disabled) {
+  background-color: #a00;
+}
+
+.bulkDeleteButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
