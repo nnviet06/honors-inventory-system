@@ -16,6 +16,7 @@ export const getAllEquipment = async (req: Request, res: Response) => {
     const { data, error } = await supabase
       .from('equipment')
       .select('*, locations(room_name, building_type)')
+      .order('user_seq', { ascending: true })
       .eq('user_id', userId);
     if (error) throw error;
     const flattened = data.map(item => {
@@ -147,7 +148,7 @@ export const bulkDelete = async (req: Request, res: Response) => {
   try {
     const userId = (req as any).user.id
     const { ids } = req.body;
-    if (!ids || Array.isArray(ids)){
+    if (!ids || !Array.isArray(ids)){
       return res.status(400).json({ error: 'Failed to delete selected items'})
     }
     const { data, error } = await supabase
