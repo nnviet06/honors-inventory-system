@@ -31,6 +31,9 @@ router.post('/equipment', controller.createEquipment);
 
 router.put('/equipment/:id', controller.updateEquipment);
 
+router.delete('/equipment/bulk', controller.bulkDelete);
+
 router.delete('/equipment/:id', controller.deleteEquipment);
+
 
 export default router;

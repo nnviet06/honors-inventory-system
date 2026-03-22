@@ -8,7 +8,7 @@
 import { useState, useEffect } from 'react';
 import styles from './EquipTable.module.css';
 import EditEquipment from '../modals/EditEquipment';
-import { getAllEquipment, deleteEquipment } from '../../services/equipmentService';
+import { getAllEquipment, deleteEquipment, bulkDelete } from '../../services/equipmentService';
 
 interface Equipment {
   id: number;
@@ -33,10 +33,15 @@ const EquipTable = ({ refreshKey, search, selectedType, selectedLocation }: Equi
   const [showEditEquipmentModal, setShowEditEquipmentModal] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
 
   useEffect(() => {
     fetchEquipment();
   }, [refreshKey]);
+
+  useEffect(() => {
+    setSelectedIds(new Set());
+  }, [selectedType, selectedLocation, search]);
 
   const fetchEquipment = async () => {
     try {
@@ -104,16 +109,60 @@ const EquipTable = ({ refreshKey, search, selectedType, selectedLocation }: Equi
       return typeMatch && locationMatch && searchMatch;
   });
 
-  
+  const toggleSelect = (id: number) => {
+    setSelectedIds(prev => {
+      const newSet = new Set(prev);
+      newSet.has(id) ? newSet.delete(id) : newSet.add(id);
+      return newSet;
+    });
+  };
+
+  const toggleSelectAll = () => {
+    if (selectedIds.size === filteredEquipment.length) {
+      setSelectedIds(new Set());
+    } else {
+      setSelectedIds(new Set(filteredEquipment.map(item => item.id)));
+    }
+  };
+
+  const handleBulkDelete = async () => {
+    const count = selectedIds.size;
+    const confirmed = window.confirm(
+      `Are you sure you want to delete ${count} item(s)?`
+    );
+    if (!confirmed) return;
+
+    try {
+      await bulkDelete(Array.from(selectedIds));
+      setSelectedIds(new Set());
+      fetchEquipment();
+    } catch (err) {
+      alert(err instanceof Error ? err.message : 'Failed to delete equipment');
+    }
+  };
 
   return (
     <>
       <div className={styles.tableContainer}>
         <div className={styles.table}>
+          <button
+              className={styles.bulkDeleteButton}
+              disabled={selectedIds.size === 0}
+              onClick={handleBulkDelete}
+            >
+              Delete Selected ({selectedIds.size})
+          </button>
           <table>
             <thead>
               <tr>
-                <th>ID</th>
+                <th className={styles.checkboxCell}>
+                  <input 
+                    type="checkbox"
+                    checked={selectedIds.size === filteredEquipment.length && filteredEquipment.length > 0}
+                    onChange={toggleSelectAll}
+                  />
+                </th>
+                <th className={styles.idHeader}>ID</th>
                 <th>Name</th>
                 <th>Type</th>
                 <th>Location</th>
@@ -123,13 +172,20 @@ const EquipTable = ({ refreshKey, search, selectedType, selectedLocation }: Equi
             <tbody>
               {filteredEquipment.length === 0 ? (
                 <tr>
-                  <td colSpan={5} className={styles.emptyText}>
+                  <td colSpan={6} className={styles.emptyText}>
                     No equipment found. Add new equipment to get started.
                   </td>
                 </tr>
               ) : (
                 filteredEquipment.map((item) => (
                   <tr key={item.id}>
+                    <td className={styles.checkboxCell}>
+                      <input
+                        type="checkbox"
+                        checked={selectedIds.has(item.id)}
+                        onChange={() => toggleSelect(item.id)}
+                      />
+                    </td>
                     <td className={styles.idCell}>{item.user_seq}</td>
                     <td>{item.model}</td>
                     <td>{item.equipment_type}</td>
