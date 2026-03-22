@@ -12,22 +12,7 @@ import AddNew from '../modals/AddNew';
 import EditEquipment from '../modals/EditEquipment';
 import LocationGroup from './LocationGroup';
 import { deleteEquipment, getAllEquipment, getAllLocations } from '../../services/equipmentService';
-
-interface Equipment {
-    id: number;
-    user_seq: number;
-    model: string;
-    equipment_type: string;
-    location_id: number;
-    room_name: string;
-    building_type: string;
-}
-
-interface Location {
-    id: number;
-    room_name: string;
-    building_type: string;
-}
+import type { Equipment, Location } from '../../types/equipment'
 
 export interface LocationGroupData {
     location: Location;

@@ -9,16 +9,7 @@ import { useState, useEffect } from 'react';
 import styles from './EquipTable.module.css';
 import EditEquipment from '../modals/EditEquipment';
 import { getAllEquipment, deleteEquipment, bulkDelete } from '../../services/equipmentService';
-
-interface Equipment {
-  id: number;
-  user_seq: number;
-  model: string;
-  equipment_type: string;
-  location_id: number;
-  room_name: string;
-  building_type: string;
-}
+import type { Equipment} from '../../types/equipment'
 
 interface EquipTableProps {
   refreshKey: number;

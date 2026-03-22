@@ -7,22 +7,9 @@
 
 import styles from './EquipTable.module.css';
 import tabStyles from './LocationTable.module.css';
+import type { Equipment, Location } from '../../types/equipment'
 
-interface Equipment {
-    id: number;
-    model: string;
-    user_seq: number;
-    equipment_type: string;
-    location_id: number;
-    room_name: string;
-    building_type: string;
-}
 
-interface Location {
-    id: number;
-    room_name: string;
-    building_type: string;
-}
 
 interface LocationGroupProps {
     location: Location;
