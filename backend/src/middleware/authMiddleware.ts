@@ -1,7 +1,10 @@
-import supabase from '../database'
-import { Request, Response, NextFunction } from 'express'
+// Verifies JWT token from Authorization header via Supabase
 
-export const authMiddleware = async (req: Request, res: Response, next: NextFunction) => {
+import supabase from '../database'
+import { Response, NextFunction } from 'express'
+import { AuthenticatedRequest } from '../types/auth'
+
+export const authMiddleware = async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
     const token = req.headers.authorization?.split(' ')[1] 
     if (!token) {
         return res.status(401).json({ error: 'Unauthorized' })
@@ -10,6 +13,6 @@ export const authMiddleware = async (req: Request, res: Response, next: NextFunc
     if (error || !user) {
         return res.status(401).json({ error: 'Unauthorized' })
     }
-    (req as any).user = user
+    req.user = { id: user.id }
     next()
 }
