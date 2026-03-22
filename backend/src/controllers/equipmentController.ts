@@ -11,9 +11,9 @@ import { Request, Response } from 'express';
 import supabase from '../database';
 import { AuthenticatedRequest } from '../types/auth'
 
-export const getAllEquipment = async (req: AuthenticatedRequest, res: Response) => {
+export const getAllEquipment = async (req: Request, res: Response) => {
   try {
-    const userId = req.user.id
+    const userId = (req as AuthenticatedRequest).user.id
     const { data, error } = await supabase
       .from('equipment')
       .select('*, locations(room_name, building_type)')
@@ -30,9 +30,9 @@ export const getAllEquipment = async (req: AuthenticatedRequest, res: Response) 
   }
 }
 
-export const getEquipmentById = async (req: AuthenticatedRequest, res: Response) => {
+export const getEquipmentById = async (req: Request, res: Response) => {
   try {
-    const userId = req.user.id
+    const userId = (req as AuthenticatedRequest).user.id
     const { id } = req.params;
     const { data, error } = await supabase
       .from('equipment')
@@ -50,9 +50,9 @@ export const getEquipmentById = async (req: AuthenticatedRequest, res: Response)
   }
 }
 
-export const createEquipment = async (req: AuthenticatedRequest, res: Response) => {
+export const createEquipment = async (req: Request, res: Response) => {
   try {
-    const userId = req.user.id
+    const userId = (req as AuthenticatedRequest).user.id
     const { model, equipment_type, location_id } = req.body;
     if (!model || !equipment_type || !location_id) {
         return res.status(400).json({ error: 'Missing required fields' });
@@ -82,9 +82,9 @@ export const createEquipment = async (req: AuthenticatedRequest, res: Response) 
   }
 }
 
-export const updateEquipment = async (req: AuthenticatedRequest, res: Response) => {
+export const updateEquipment = async (req: Request, res: Response) => {
   try {
-    const userId = req.user.id
+    const userId = (req as AuthenticatedRequest).user.id
     const { id } = req.params;
     const { model, equipment_type, location_id } = req.body;
     const { data, error } = await supabase
@@ -103,9 +103,9 @@ export const updateEquipment = async (req: AuthenticatedRequest, res: Response) 
   }
 }
 
-export const deleteEquipment = async (req: AuthenticatedRequest, res: Response) => {
+export const deleteEquipment = async (req: Request, res: Response) => {
   try {
-    const userId = req.user.id
+    const userId = (req as AuthenticatedRequest).user.id
     const { id } = req.params;
     const { data, error } = await supabase
       .from('equipment')
@@ -131,9 +131,9 @@ export const getAllLocations = async (req: Request, res: Response) => {
   }
 }
 
-export const getAllTypes = async (req: AuthenticatedRequest, res: Response) => {
+export const getAllTypes = async (req: Request, res: Response) => {
   try {
-    const userId = req.user.id
+    const userId = (req as AuthenticatedRequest).user.id
     const { data, error } = await supabase
         .from('equipment').select('equipment_type')
         .eq('user_id', userId);
@@ -145,9 +145,9 @@ export const getAllTypes = async (req: AuthenticatedRequest, res: Response) => {
   }
 }
 
-export const bulkDelete = async (req: AuthenticatedRequest, res: Response) => {
+export const bulkDelete = async (req: Request, res: Response) => {
   try {
-    const userId = req.user.id
+    const userId = (req as AuthenticatedRequest).user.id
     const { ids } = req.body;
     if (!ids || !Array.isArray(ids)){
       return res.status(400).json({ error: 'Failed to delete selected items'})
