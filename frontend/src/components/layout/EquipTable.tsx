@@ -8,7 +8,7 @@
 import { useState, useEffect } from 'react';
 import styles from './EquipTable.module.css';
 import EditEquipment from '../modals/EditEquipment';
-import { getAllEquipment, deleteEquipment } from '../../services/equipmentService';
+import { getAllEquipment, deleteEquipment, bulkDelete } from '../../services/equipmentService';
 
 interface Equipment {
   id: number;
@@ -133,7 +133,7 @@ const EquipTable = ({ refreshKey, search, selectedType, selectedLocation }: Equi
     if (!confirmed) return;
 
     try {
-      // call bulkDeleteEquipment API
+      await bulkDelete(Array.from(selectedIds));
       setSelectedIds(new Set());
       fetchEquipment();
     } catch (err) {

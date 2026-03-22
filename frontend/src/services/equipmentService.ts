@@ -77,7 +77,7 @@ export const deleteEquipment = async (id: number) => {
     } catch (err) {
         throw err instanceof Error ? err : new Error('Failed to delete equipment');
     }
-  };
+};
 
 export const createEquipment = async (model: string, equipmentType: string, locationId: number) => {
     try {
@@ -113,4 +113,20 @@ export const updateEquipment = async (id: number, model: string, equipmentType: 
     }
 };
 
+export const bulkDelete = async (ids: number[]) => {
+    try {
+      const response = await fetch(`${BASE_URL}/api/equipment/bulk`, {
+        headers: getHeaders(),
+        body: JSON.stringify({ ids }),
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete selected items');
+      }
+      return response.json();
+    } catch (err) {
+        throw err instanceof Error ? err : new Error('Failed to delete selected items');
+    }
+};
 
