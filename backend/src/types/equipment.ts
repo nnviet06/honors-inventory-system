@@ -1,0 +1,1 @@
+// type definitions and interfaces for equipment

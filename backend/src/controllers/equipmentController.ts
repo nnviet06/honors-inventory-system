@@ -8,7 +8,7 @@
  */
 
 import { Request, Response } from 'express';
-import supabase from './database';
+import supabase from '../database';
 
 export const getAllEquipment = async (req: Request, res: Response) => {
   try {
