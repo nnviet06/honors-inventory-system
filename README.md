@@ -10,6 +10,9 @@ Built for the Honors IT Team ❤
 ## Live Demo
 https://honors-inventory-system.vercel.app/
 
+## Development Log
+See [DEVLOG.md](./DEVLOG.md) for detailed development phases and progress
+
 ## Project Overview
 
 This inventory system enables the Honors IT Team to:
