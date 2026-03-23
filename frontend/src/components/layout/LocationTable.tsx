@@ -132,59 +132,26 @@ const LocationTable = () => {
                         </button>
                     </div>
 
-                    {/* Warehouses Section */}
-                    {groupedLocations['Warehouse'].length > 0 && (
-                        <div className={tabStyles.buildingSection}>
-                            <h3 className={tabStyles.buildingSectionTitle}>Warehouse</h3>
-                            {groupedLocations['Warehouse'].map(({ location, equipment: locEquip }) => (
+                    {(['Warehouse', 'Classroom', 'Office'] as const).map((type) => (
+                    groupedLocations[type].length > 0 && (
+                        <div key={type} className={tabStyles.buildingSection}>
+                        <h3 className={tabStyles.buildingSectionTitle}>
+                            {type === 'Classroom' ? 'Classrooms' : type === 'Office' ? 'Offices' : type}
+                        </h3>
+                            {groupedLocations[type].map(({ location, equipment: locEquip }) => (
                                 <LocationGroup
-                                    key={location.id}
-                                    location={location}
-                                    equipment={locEquip}
-                                    isExpanded={expandedLocations.has(location.id)}
-                                    onToggle={() => toggleLocation(location.id)}
-                                    onEdit={handleEdit}
-                                    onDelete={handleDelete}
+                                key={location.id}
+                                location={location}
+                                equipment={locEquip}
+                                isExpanded={expandedLocations.has(location.id)}
+                                onToggle={() => toggleLocation(location.id)}
+                                onEdit={handleEdit}
+                                onDelete={handleDelete}
                                 />
                             ))}
-                        </div>
-                    )}
-
-                    {/* Classrooms Section */}
-                    {groupedLocations['Classroom'].length > 0 && (
-                        <div className={tabStyles.buildingSection}>
-                            <h3 className={tabStyles.buildingSectionTitle}>Classrooms</h3>
-                            {groupedLocations['Classroom'].map(({ location, equipment: locEquip }) => (
-                                <LocationGroup
-                                    key={location.id}
-                                    location={location}
-                                    equipment={locEquip}
-                                    isExpanded={expandedLocations.has(location.id)}
-                                    onToggle={() => toggleLocation(location.id)}
-                                    onEdit={handleEdit}
-                                    onDelete={handleDelete}
-                                />
-                            ))}
-                        </div>
-                    )}
-
-                    {/* Offices Section */}
-                    {groupedLocations['Office'].length > 0 && (
-                        <div className={tabStyles.buildingSection}>
-                            <h3 className={tabStyles.buildingSectionTitle}>Offices</h3>
-                            {groupedLocations['Office'].map(({ location, equipment: locEquip }) => (
-                                <LocationGroup
-                                    key={location.id}
-                                    location={location}
-                                    equipment={locEquip}
-                                    isExpanded={expandedLocations.has(location.id)}
-                                    onToggle={() => toggleLocation(location.id)}
-                                    onEdit={handleEdit}
-                                    onDelete={handleDelete}
-                                />
-                            ))}
-                        </div>
-                    )}
+                            </div>
+                        )
+                    ))}
                 </div>
             </div>
 
