@@ -10,13 +10,16 @@ Built for the Honors IT Team ❤
 ## Live Demo
 https://honors-inventory-system.vercel.app/
 
+## Development Log
+See [DEVLOG.md](./DEVLOG.md) for detailed development phases and progress
+
 ## Project Overview
 
 This inventory system enables the Honors IT Team to:
 - **TRACK** (monitors, laptops, printers, keyboards, mice)
 - **MANAGE LOCATIONS** across 5 floors (Warehouses, Classrooms, Offices)
 - **ADD NEW** to inventory
-- **DELETE** broken equipment
+- **DELETE** broken equipment (single or multiple items at once)
 - **EDIT** equipment details
 - **AUTHENTICATE** per-user login with data isolation
 ---
@@ -43,6 +46,9 @@ This inventory system enables the Honors IT Team to:
 ### Edit Equipment
 ![Edit Function](./projectdemo/editfunction.jpg)
 
+### Select All + Bulk Delete
+![Select All + Bulk Delete function](./projectdemo/selectall&bulkdeletefunction.jpg)
+
 ---
 
 ## Technology Stack
@@ -61,7 +67,8 @@ This inventory system enables the Honors IT Team to:
 - **Add Equipment** - Modal form to add new items
 - **Edit Equipment** - Edit model, type, and location of equipment
 - **Delete Equipment** - Remove items from inventory
-- **Search & Filter Button** - Search equipment by model name and filter by type and building location
+- **Search & Filter** - Search equipment by model name and filter by type and building location
+- **Select All & Bulk Delete** - Checkbox selection with bulk delete for multiple items at once
 
 ## Installation (if you want to test it out by yourself)
 
@@ -174,7 +181,6 @@ VITE v7.x.x ready in XXXms
 **If everything above checks out → Your system is ready**
 
 ## Future planning
-- Select All + Bulk Delete.
 - Guest/Demo mode.
 - Multiply the data size by many times.
 - Implement Redis caching.
