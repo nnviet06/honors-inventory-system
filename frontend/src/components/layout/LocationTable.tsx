@@ -11,8 +11,9 @@ import tabStyles from './LocationTable.module.css';
 import AddNew from '../modals/AddNew';
 import EditEquipment from '../modals/EditEquipment';
 import LocationGroup from './LocationGroup';
-import { deleteEquipment, getAllEquipment, getAllLocations } from '../../services/equipmentService';
+import { getAllEquipment, getAllLocations } from '../../services/equipmentService';
 import type { Equipment, Location } from '../../types/equipment'
+import {useEquipmentActions} from '../../hooks/useEquipmentActions'
 
 export interface LocationGroupData {
     location: Location;
@@ -27,8 +28,6 @@ const LocationTable = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const [showAddNewModal, setShowAddNewModal] = useState(false);
-    const [showEditModal, setShowEditModal] = useState(false);
-    const [selectedItem, setSelectedItem] = useState<Equipment | null>(null);
 
     useEffect(() => {
         fetchData();
@@ -79,28 +78,13 @@ const LocationTable = () => {
         });
     };
 
-    const handleEdit = (item: Equipment) => {
-        setSelectedItem(item);
-        setShowEditModal(true);
-    };
-
-    const handleDelete = async (id: number, model: string) => {
-        if (!window.confirm(`Are you sure you want to delete ${model}?`)) return;
-        
-        try {
-            await deleteEquipment(id);
-            fetchData();
-        } catch (err) {
-            alert(err instanceof Error ? err.message : 'Failed to delete equipment');
-        }
-    };
-
-    const handleModalClose = () => {
+    const handleAddNewClose = () => {
         setShowAddNewModal(false);
-        setShowEditModal(false);
-        setSelectedItem(null);
         fetchData();
     };
+
+    const { selectedItem, showEditModal, handleEdit, handleDelete, handleModalClose } 
+     = useEquipmentActions(fetchData);
 
     if (loading) {
         return (
@@ -208,8 +192,8 @@ const LocationTable = () => {
             {showAddNewModal && (
                 <AddNew
                     locations={getCurrentFloorLocations()}
-                    onClose={handleModalClose}
-                    onSuccess={handleModalClose}
+                    onClose={handleAddNewClose}
+                    onSuccess={handleAddNewClose}
                 />
             )}
 

@@ -8,8 +8,9 @@
 import { useState, useEffect } from 'react';
 import styles from './EquipTable.module.css';
 import EditEquipment from '../modals/EditEquipment';
-import { getAllEquipment, deleteEquipment, bulkDelete } from '../../services/equipmentService';
+import { getAllEquipment, bulkDelete } from '../../services/equipmentService';
 import type { Equipment} from '../../types/equipment'
+import {useEquipmentActions} from '../../hooks/useEquipmentActions'
 
 interface EquipTableProps {
   refreshKey: number;
@@ -20,8 +21,6 @@ interface EquipTableProps {
 
 const EquipTable = ({ refreshKey, search, selectedType, selectedLocation }: EquipTableProps) => {
   const [equipmentList, setEquipmentList] = useState<Equipment[]>([]);
-  const [selectedItem, setSelectedItem] = useState<Equipment | null>(null);
-  const [showEditEquipmentModal, setShowEditEquipmentModal] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
@@ -48,30 +47,8 @@ const EquipTable = ({ refreshKey, search, selectedType, selectedLocation }: Equi
     }
   };
 
-  const handleEdit = (item: Equipment) => {
-    setSelectedItem(item);
-    setShowEditEquipmentModal(true);
-  };
-
-  const handleDelete = async (id: number, model: string) => {
-    const confirmed = window.confirm(
-      `Are you sure you want to delete ${model}?`
-    );
-    if (!confirmed) return;
-
-    try {
-      await deleteEquipment(id);
-      fetchEquipment();
-    } catch (err) {
-      alert(err instanceof Error ? err.message : 'Failed to delete equipment');
-    }
-  };
-
-  const handleModalClose = () => {
-    setShowEditEquipmentModal(false);
-    setSelectedItem(null);
-    fetchEquipment();
-  };
+  const { selectedItem, showEditModal, handleEdit, handleDelete, handleModalClose } 
+  = useEquipmentActions(fetchEquipment);
 
   if (loading) {
     return (
@@ -207,7 +184,7 @@ const EquipTable = ({ refreshKey, search, selectedType, selectedLocation }: Equi
         </div>
       </div>
 
-      {showEditEquipmentModal && selectedItem && (
+      {showEditModal && selectedItem && (
         <EditEquipment
           item={selectedItem}
           onClose={handleModalClose}
