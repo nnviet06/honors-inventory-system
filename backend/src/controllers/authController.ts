@@ -1,6 +1,6 @@
 // Handles log in and sign up via Supabase auth
 
-import supabase from './database'
+import supabase from '../database'
 import { Request, Response } from 'express'
 
 export const signUp = async (req: Request, res: Response) => {

@@ -8,17 +8,12 @@
 import { useState, useEffect } from 'react';
 import styles from './AddNew.module.css';
 import { getAllLocations, createEquipment } from '../../services/equipmentService';
+import type { Location } from '../../types/equipment'
 
 interface AddNewProps {
     onClose: () => void;
     onSuccess: () => void;
     locations?: Location[];
-}
-
-interface Location {
-    id: number;
-    room_name: string;
-    building_type: string;
 }
 
 const AddNew = ({ onClose, onSuccess, locations: propLocations }: AddNewProps) => {

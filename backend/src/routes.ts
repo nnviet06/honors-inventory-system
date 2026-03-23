@@ -4,9 +4,9 @@
  */
 
 import { Router } from 'express';
-import { authMiddleware } from './authMiddleware'
-import * as controller from './equipmentController';
-import * as authController from './authController';
+import { authMiddleware } from './middleware/authMiddleware'
+import * as controller from './controllers/equipmentController';
+import * as authController from './controllers/authController';
 
 
 const router = Router();

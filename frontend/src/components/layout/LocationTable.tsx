@@ -11,23 +11,9 @@ import tabStyles from './LocationTable.module.css';
 import AddNew from '../modals/AddNew';
 import EditEquipment from '../modals/EditEquipment';
 import LocationGroup from './LocationGroup';
-import { deleteEquipment, getAllEquipment, getAllLocations } from '../../services/equipmentService';
-
-interface Equipment {
-    id: number;
-    user_seq: number;
-    model: string;
-    equipment_type: string;
-    location_id: number;
-    room_name: string;
-    building_type: string;
-}
-
-interface Location {
-    id: number;
-    room_name: string;
-    building_type: string;
-}
+import { getAllEquipment, getAllLocations } from '../../services/equipmentService';
+import type { Equipment, Location } from '../../types/equipment'
+import {useEquipmentActions} from '../../hooks/useEquipmentActions'
 
 export interface LocationGroupData {
     location: Location;
@@ -42,8 +28,6 @@ const LocationTable = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const [showAddNewModal, setShowAddNewModal] = useState(false);
-    const [showEditModal, setShowEditModal] = useState(false);
-    const [selectedItem, setSelectedItem] = useState<Equipment | null>(null);
 
     useEffect(() => {
         fetchData();
@@ -94,28 +78,13 @@ const LocationTable = () => {
         });
     };
 
-    const handleEdit = (item: Equipment) => {
-        setSelectedItem(item);
-        setShowEditModal(true);
-    };
-
-    const handleDelete = async (id: number, model: string) => {
-        if (!window.confirm(`Are you sure you want to delete ${model}?`)) return;
-        
-        try {
-            await deleteEquipment(id);
-            fetchData();
-        } catch (err) {
-            alert(err instanceof Error ? err.message : 'Failed to delete equipment');
-        }
-    };
-
-    const handleModalClose = () => {
+    const handleAddNewClose = () => {
         setShowAddNewModal(false);
-        setShowEditModal(false);
-        setSelectedItem(null);
         fetchData();
     };
+
+    const { selectedItem, showEditModal, handleEdit, handleDelete, handleModalClose } 
+     = useEquipmentActions(fetchData);
 
     if (loading) {
         return (
@@ -163,59 +132,26 @@ const LocationTable = () => {
                         </button>
                     </div>
 
-                    {/* Warehouses Section */}
-                    {groupedLocations['Warehouse'].length > 0 && (
-                        <div className={tabStyles.buildingSection}>
-                            <h3 className={tabStyles.buildingSectionTitle}>Warehouse</h3>
-                            {groupedLocations['Warehouse'].map(({ location, equipment: locEquip }) => (
+                    {(['Warehouse', 'Classroom', 'Office'] as const).map((type) => (
+                    groupedLocations[type].length > 0 && (
+                        <div key={type} className={tabStyles.buildingSection}>
+                        <h3 className={tabStyles.buildingSectionTitle}>
+                            {type === 'Classroom' ? 'Classrooms' : type === 'Office' ? 'Offices' : type}
+                        </h3>
+                            {groupedLocations[type].map(({ location, equipment: locEquip }) => (
                                 <LocationGroup
-                                    key={location.id}
-                                    location={location}
-                                    equipment={locEquip}
-                                    isExpanded={expandedLocations.has(location.id)}
-                                    onToggle={() => toggleLocation(location.id)}
-                                    onEdit={handleEdit}
-                                    onDelete={handleDelete}
+                                key={location.id}
+                                location={location}
+                                equipment={locEquip}
+                                isExpanded={expandedLocations.has(location.id)}
+                                onToggle={() => toggleLocation(location.id)}
+                                onEdit={handleEdit}
+                                onDelete={handleDelete}
                                 />
                             ))}
-                        </div>
-                    )}
-
-                    {/* Classrooms Section */}
-                    {groupedLocations['Classroom'].length > 0 && (
-                        <div className={tabStyles.buildingSection}>
-                            <h3 className={tabStyles.buildingSectionTitle}>Classrooms</h3>
-                            {groupedLocations['Classroom'].map(({ location, equipment: locEquip }) => (
-                                <LocationGroup
-                                    key={location.id}
-                                    location={location}
-                                    equipment={locEquip}
-                                    isExpanded={expandedLocations.has(location.id)}
-                                    onToggle={() => toggleLocation(location.id)}
-                                    onEdit={handleEdit}
-                                    onDelete={handleDelete}
-                                />
-                            ))}
-                        </div>
-                    )}
-
-                    {/* Offices Section */}
-                    {groupedLocations['Office'].length > 0 && (
-                        <div className={tabStyles.buildingSection}>
-                            <h3 className={tabStyles.buildingSectionTitle}>Offices</h3>
-                            {groupedLocations['Office'].map(({ location, equipment: locEquip }) => (
-                                <LocationGroup
-                                    key={location.id}
-                                    location={location}
-                                    equipment={locEquip}
-                                    isExpanded={expandedLocations.has(location.id)}
-                                    onToggle={() => toggleLocation(location.id)}
-                                    onEdit={handleEdit}
-                                    onDelete={handleDelete}
-                                />
-                            ))}
-                        </div>
-                    )}
+                            </div>
+                        )
+                    ))}
                 </div>
             </div>
 
@@ -223,8 +159,8 @@ const LocationTable = () => {
             {showAddNewModal && (
                 <AddNew
                     locations={getCurrentFloorLocations()}
-                    onClose={handleModalClose}
-                    onSuccess={handleModalClose}
+                    onClose={handleAddNewClose}
+                    onSuccess={handleAddNewClose}
                 />
             )}
 
