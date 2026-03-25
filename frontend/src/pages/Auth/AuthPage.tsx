@@ -78,6 +78,12 @@ const AuthPage = ({ onLogin }: { onLogin: (data: any) => void }) => {
                 </button>
             </form>
         </div>
+        <div className={styles.divider}>
+                <span>or</span>
+            </div>
+            <button className={styles.guestButton}>
+                Try Guest Mode
+            </button>
         </div>
     );
 }
