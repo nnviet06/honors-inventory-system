@@ -165,8 +165,8 @@
     width: 100%;
     max-width: 700px;
     padding: 18px;
-    background-color: #ffffff;
-    color: #006747;
+    background-color: #006747;
+    color: #ffffff;
     border: 2px solid #006747;
     border-radius: 6px;
     font-size: 19px;
@@ -177,4 +177,5 @@
 
 .guestButton:hover {
     background-color: #f0faf6;
+    color: #006747;
 }
