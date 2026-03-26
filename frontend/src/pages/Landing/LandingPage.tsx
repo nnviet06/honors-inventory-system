@@ -6,7 +6,6 @@
 
 import AuthPage from '../Auth/AuthPage'
 import styles from './LandingPage.module.css'
-// import GuestMode from '../components/modals/GuestMode'
 
 
 const LandingPage = ({ onLogin }: { onLogin: (data: any) => void }) => {
