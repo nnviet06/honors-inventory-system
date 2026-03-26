@@ -1,3 +1,9 @@
+/**
+ * AuthPage Component
+ * Pure auth form — tab toggle (Login/Sign Up) + email/password inputs.
+ * Rendered inside LandingPage container.
+ */
+
 import {useState} from 'react';
 import styles from './AuthPage.module.css';
 import { authService } from '../../services/authService';
@@ -35,12 +41,7 @@ const AuthPage = ({ onLogin }: { onLogin: (data: any) => void }) => {
         setError('');
     }
     return (
-        <div className={styles.container}>
-            <div className={styles.header}>
-                <h1 className={styles.title}>📦 WELCOME TO THE HONORS INVENTORY SYSTEM</h1>
-            </div>
-            <p className={styles.subtitle}>Please log in or sign up to continue</p>
-            <div className={styles.card}>
+        <div className={styles.card}>
             <div className={styles.tabToggle}>
                 <button
                     className={`${styles.tabButton} ${activeTab === 'login' ? styles.active : ''}`}
@@ -77,13 +78,6 @@ const AuthPage = ({ onLogin }: { onLogin: (data: any) => void }) => {
                     {activeTab === 'login' ? 'Login' : 'Sign Up'}
                 </button>
             </form>
-        </div>
-        <div className={styles.divider}>
-                <span>or</span>
-            </div>
-            <button className={styles.guestButton}>
-                Try Guest Mode
-            </button>
         </div>
     );
 }
