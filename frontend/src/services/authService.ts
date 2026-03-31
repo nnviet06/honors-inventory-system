@@ -40,7 +40,24 @@ const signIn = async (email: string, password: string) => {
     }
 };
 
+const guestMode = async () => {
+    try {
+        const response = await fetch(`${BASE_URL}/guest`, {
+            method: 'POST',
+        });
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || 'Failed to enter guest mode');
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('Error during guest mode:', error);
+        throw error;
+    }
+};
+
 export const authService = {
     signUp,
     signIn,
+    guestMode,
 };
