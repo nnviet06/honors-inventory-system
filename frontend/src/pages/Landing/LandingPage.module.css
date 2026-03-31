@@ -71,3 +71,10 @@
     background-color: #f0faf6;
     color: #006747;
 }
+
+.error {
+    color: #dc3545;
+    font-size: 0.9rem;
+    text-align: center;
+    margin-top: 0.5rem;
+}
