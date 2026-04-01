@@ -16,7 +16,10 @@ router.post('/auth/signup', authController.signUp);
 
 router.post('/auth/signin', authController.signIn);
 
+router.post('/auth/guest', authController.guestMode);
+
 router.use(authMiddleware); // Apply authentication middleware to all routes
+
 
 // Equipment Routes
 router.get('/equipment', controller.getAllEquipment);
