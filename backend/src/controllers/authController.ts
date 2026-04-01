@@ -40,3 +40,27 @@ export const signIn = async (req: Request, res: Response) => {
     res.status(500).json({ error: 'Internal server error' })
   }
 }
+
+export const guestMode = async (req: Request, res: Response) => {
+  try {
+    const { data, error } = await supabase.auth.signUp({
+      email: `guest_${Date.now()}@example.com`,
+      password: Math.random().toString(36).slice(-8)
+    })
+    if (error) {
+      return res.status(400).json({ error: error.message })
+    }
+    if (!data.user) {
+      return res.status(500).json({ error: 'User creation failed' })
+    }
+
+    const { error: seedError } = await supabase.rpc('seed_user_equipment', { p_user_id: data.user.id })
+    
+    if (seedError) {
+      return res.status(500).json({ error: 'Failed to initialize user equipment' })
+    }
+    res.status(200).json({ user: data.user, session: data.session })
+  } catch (error) {
+    res.status(500).json({ error: 'Internal server error' })
+  }
+}

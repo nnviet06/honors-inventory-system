@@ -1,0 +1,80 @@
+.container {
+    min-height: 100vh;
+    background-color: #f5f5f5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Header - full width like NavBar */
+.header {
+    background-color: #006747;
+    width: calc(100% - 80px);
+    padding: 30px 60px;
+    border-radius: 16px;
+    margin: 20px 40px 0 40px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.title {
+    color: #ffffff;
+    font-size: 40px;
+    font-weight: bold;
+    margin: 0 0 6px 0;
+}
+
+.subtitle {
+    color: #006747;
+    font-size: 20px;
+    margin: 24px 0 16px 0;
+    font-weight: 600;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 30px 0;
+    width: 100%;
+    max-width: 700px;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background-color: #ccc;
+}
+
+.divider span {
+    color: #999;
+    font-size: 15px;
+}
+
+.guestButton {
+    width: 100%;
+    max-width: 700px;
+    padding: 18px;
+    background-color: #006747;
+    color: #ffffff;
+    border: 2px solid #006747;
+    border-radius: 6px;
+    font-size: 19px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.guestButton:hover {
+    background-color: #f0faf6;
+    color: #006747;
+}
+
+.error {
+    color: #dc3545;
+    font-size: 0.9rem;
+    text-align: center;
+    margin-top: 0.5rem;
+}

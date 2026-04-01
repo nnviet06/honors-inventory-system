@@ -4,7 +4,7 @@
  */
 
 import styles from './App.module.css'
-import AuthPage from './pages/Auth/AuthPage'
+import LandingPage from './pages/Landing/LandingPage'
 import NavBar from './components/layout/NavBar'
 import ItemsView from './pages/ItemsView'
 import LocationsView from './pages/LocationsView'
@@ -24,7 +24,7 @@ function App() {
         setToken(data.session.access_token);
     };
     if (!session) {
-        return <AuthPage onLogin={handleLogin} />
+        return <LandingPage onLogin={handleLogin} />
     }
     return (
         <div className={styles.app}>
