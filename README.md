@@ -16,12 +16,13 @@ See [DEVLOG.md](./DEVLOG.md) for detailed development phases and progress
 ## Project Overview
 
 This inventory system enables the Honors IT Team to:
-- **TRACK** (monitors, laptops, printers, keyboards, mice)
-- **MANAGE LOCATIONS** across 5 floors (Warehouses, Classrooms, Offices)
-- **ADD NEW** to inventory
-- **DELETE** broken equipment (single or multiple items at once)
+- **TRACK** 
+- **MANAGE LOCATIONS** 
+- **ADD NEW** 
+- **DELETE** (single or multiple items at once)
 - **EDIT** equipment details
 - **AUTHENTICATE** per-user login with data isolation
+- **GUESTMODE** 
 ---
 ## Demo Screenshots
 
@@ -181,7 +182,6 @@ VITE v7.x.x ready in XXXms
 **If everything above checks out → Your system is ready**
 
 ## Future planning
-- Guest/Demo mode.
 - Multiply the data size by many times.
 - Implement Redis caching.
 

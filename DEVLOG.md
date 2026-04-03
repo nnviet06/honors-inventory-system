@@ -78,7 +78,7 @@ A chronological record of the development phases for the Honors Inventory System
 
 ---
 
-## Phase 4: Bulk Delete + Refactor (Mar 2026)
+## Phase 4: Bulk Delete + Refactor (Mar 2026) [Issue #13](https://github.com/nnviet06/Honors-Inventory-System/issues/13)
 
 **Bulk Delete feature:**
 - Added checkboxes to each row + Select All checkbox in table header + "Delete Selected" button with confirmation dialog
@@ -94,8 +94,14 @@ A chronological record of the development phases for the Honors Inventory System
 
 ---
 
-## Phase 5: Planning
+## Phase 5a: Guest Mode (Mar-Apr 2026) - [Issue #17](https://github.com/nnviet06/Honors-Inventory-System/issues/17)
 
-- **Guest/Demo mode** — view the app without creating an account
-- **Scale data** — multiply equipment data size for performance testing
-- **Redis caching** — cache frequent queries for faster response times
+**Problem:** Visitors couldn't try the app without creating an account.
+
+**Solution:** Added a Guest Mode entry point on the landing page.
+- Created `LandingPage` container component that wraps `AuthPage` form + "Try Guest Mode" button with divider
+- Backend `POST /api/auth/guest` creates a temporary account (`guest_<timestamp>@example.com`) with auto-generated password, then signs in and returns JWT
+- Added `authService.guestMode()` on frontend to call the guest endpoint
+- Guest accounts auto-seeded with 20 sample items via existing `seed_user_equipment()` function
+
+**Related PRs:** [#18](https://github.com/nnviet06/Honors-Inventory-System/pull/18)
