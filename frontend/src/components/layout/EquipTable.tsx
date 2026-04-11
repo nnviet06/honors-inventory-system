@@ -30,6 +30,9 @@ const EquipTable = ({ refreshKey, search, selectedType, selectedLocation }: Equi
     handleEdit,
     handleDelete,
     handleModalClose,
+    currentPage,
+    totalPages,
+    setCurrentPage,
   } = useEquipTable({ refreshKey, search, selectedType, selectedLocation });
 
   if (loading) {
@@ -125,6 +128,21 @@ const EquipTable = ({ refreshKey, search, selectedType, selectedLocation }: Equi
               )}
             </tbody>
           </table>
+          <div className={styles.pagination}>
+            <button
+              disabled={currentPage === 1}
+              onClick={() => setCurrentPage(currentPage - 1)}
+            >
+              Previous
+            </button>
+            <span>Page {currentPage} of {totalPages}</span>
+            <button
+              disabled={currentPage === totalPages}
+              onClick={() => setCurrentPage(currentPage + 1)}
+            >
+              Next
+            </button>
+          </div>
         </div>
       </div>
 
