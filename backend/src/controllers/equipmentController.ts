@@ -14,9 +14,14 @@ import { AuthenticatedRequest } from '../types/auth'
 export const getAllEquipment = async (req: Request, res: Response) => {
   try {
     const userId = (req as AuthenticatedRequest).user.id
-    const { data, error } = await supabase
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = parseInt(req.query.limit as string) || 50;
+    const from = (page - 1) * limit;
+    const to = from + limit - 1;
+    const { data, error, count } = await supabase
       .from('equipment')
-      .select('*, locations(room_name, building_type)')
+      .select('*, locations(room_name, building_type)', { count: 'exact' })
+      .range(from, to)
       .order('user_seq', { ascending: true })
       .eq('user_id', userId);
     if (error) throw error;
@@ -24,8 +29,14 @@ export const getAllEquipment = async (req: Request, res: Response) => {
         const { locations, ...rest } = item;
         return { ...rest, ...locations };
     });
-    res.status(200).json(flattened);
-  } catch (error) {
+    res.status(200).json({
+      data: flattened,
+      total: count,
+      page, 
+      totalPages: Math.ceil((count || 0) / limit)
+    })
+    }
+  catch (error) {
     res.status(500).json({ error: 'Failed to retrieve equipment' });
   }
 }
