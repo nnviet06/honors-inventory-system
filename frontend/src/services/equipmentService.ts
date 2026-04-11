@@ -16,10 +16,10 @@ const getHeaders = (): Record<string, string> => {
     return headers;
 };
 
-export const getAllEquipment = async () => {
+export const getAllEquipment = async (page: number = 1, limit: number = 50) => {
     
     try {
-      const response = await fetch(`${BASE_URL}/api/equipment`, {
+      const response = await fetch(`${BASE_URL}/api/equipment?page=${page}&limit=${limit}`, {
         headers: getHeaders(),
       });
       

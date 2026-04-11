@@ -22,20 +22,26 @@ export const useEquipTable = ({ refreshKey, search, selectedType, selectedLocati
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [total, setTotal] = useState(0);
  
   useEffect(() => {
     fetchEquipment();
-  }, [refreshKey]);
+  }, [refreshKey, currentPage]);
  
   useEffect(() => {
     setSelectedIds(new Set());
+    setCurrentPage(1);
   }, [selectedType, selectedLocation, search]);
  
   const fetchEquipment = async () => {
     try {
       setLoading(true);
-      const data = await getAllEquipment();
-      setEquipmentList(data);
+      const data = await getAllEquipment(currentPage);
+      setEquipmentList(data.data);
+      setTotalPages(data.totalPages);
+      setTotal(data.total);
       setError('');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
@@ -98,6 +104,10 @@ export const useEquipTable = ({ refreshKey, search, selectedType, selectedLocati
     handleEdit,
     handleDelete,
     handleModalClose,
+    currentPage,
+    totalPages,
+    total,
+    setCurrentPage,
   };
 };
  
