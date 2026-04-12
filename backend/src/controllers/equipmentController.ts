@@ -15,7 +15,7 @@ export const getAllEquipment = async (req: Request, res: Response) => {
   try {
     const userId = (req as AuthenticatedRequest).user.id
     const page = parseInt(req.query.page as string) || 1;
-    const limit = parseInt(req.query.limit as string) || 50;
+    const limit = parseInt(req.query.limit as string) || 20;
     const from = (page - 1) * limit;
     const to = from + limit - 1;
     const { data, error, count } = await supabase

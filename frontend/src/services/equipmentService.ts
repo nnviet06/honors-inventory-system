@@ -16,7 +16,7 @@ const getHeaders = (): Record<string, string> => {
     return headers;
 };
 
-export const getAllEquipment = async (page: number = 1, limit: number = 50) => {
+export const getAllEquipment = async (page: number = 1, limit: number = 20) => {
     
     try {
       const response = await fetch(`${BASE_URL}/api/equipment?page=${page}&limit=${limit}`, {
