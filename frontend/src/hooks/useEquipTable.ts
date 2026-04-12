@@ -25,7 +25,7 @@ export const useEquipTable = ({ refreshKey, search, selectedType, selectedLocati
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [total, setTotal] = useState(0);
- 
+
   useEffect(() => {
     fetchEquipment();
   }, [refreshKey, currentPage]);
@@ -34,7 +34,16 @@ export const useEquipTable = ({ refreshKey, search, selectedType, selectedLocati
     setSelectedIds(new Set());
     setCurrentPage(1);
   }, [selectedType, selectedLocation, search]);
- 
+
+  // Ensure currentPage is valid if totalPages changes (e.g. after filtering or deletion)
+  useEffect(() => {
+    if (currentPage > totalPages && totalPages > 0) {
+      setCurrentPage(totalPages);
+    } else if (totalPages === 0) {
+      setCurrentPage(1);
+    }
+  }, [totalPages, currentPage]);
+
   const fetchEquipment = async () => {
     try {
       setLoading(true);
