@@ -18,7 +18,7 @@ export const getAllEquipment = async (req: Request, res: Response) => {
     const limit = parseInt(req.query.limit as string) || 20;
     const search = req.query.search as string;
     const location = req.query.location as string;
-    const status = req.query.status as string;
+    const type = req.query.type as string;
     const from = (page - 1) * limit;
     const to = from + limit - 1;
     let query = supabase
@@ -31,8 +31,8 @@ export const getAllEquipment = async (req: Request, res: Response) => {
     if (location) {
       query = query.eq('location_id', location);
     }
-    if (status) {
-      query = query.eq('status', status);
+    if (type) {
+      query = query.eq('equipment_type', type);
     }
     const { data, error, count } = await query
       .range(from, to)
