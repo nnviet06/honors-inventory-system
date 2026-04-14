@@ -28,7 +28,7 @@ export const useEquipTable = ({ refreshKey, search, selectedType, selectedLocati
 
   useEffect(() => {
     fetchEquipment();
-  }, [refreshKey, currentPage]);
+  }, [refreshKey, currentPage, selectedType, selectedLocation, search]);
  
   useEffect(() => {
     setSelectedIds(new Set());
@@ -47,7 +47,7 @@ export const useEquipTable = ({ refreshKey, search, selectedType, selectedLocati
   const fetchEquipment = async () => {
     try {
       setLoading(true);
-      const data = await getAllEquipment(currentPage);
+      const data = await getAllEquipment(currentPage, 20, search, selectedType, selectedLocation);
       setEquipmentList(data.data);
       setTotalPages(data.totalPages);
       setTotal(data.total);

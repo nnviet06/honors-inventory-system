@@ -17,25 +17,27 @@ export const getAllEquipment = async (req: Request, res: Response) => {
     const page = parseInt(req.query.page as string) || 1;
     const limit = parseInt(req.query.limit as string) || 20;
     const search = req.query.search as string;
-    const location = req.query.location as string;
-    const type = req.query.type as string;
+    const location = req.query.location as string; // New query parameters for filtering
+    const type = req.query.type as string; // New query parameters for filtering
     const from = (page - 1) * limit;
     const to = from + limit - 1;
+    
     let query = supabase
       .from('equipment')
       .select('*, locations(room_name, building_type)', { count: 'exact' })
       .eq('user_id', userId);
+    // Apply filters based on query parameters
     if (search) {
       query = query.ilike('model', `%${search}%`);
     }
     if (location) {
-      query = query.eq('location_id', location);
+      query = query.eq('locations.building_type', location);
     }
     if (type) {
       query = query.eq('equipment_type', type);
     }
     const { data, error, count } = await query
-      .range(from, to)
+      .range(from, to) // pagination using range 
       .order('user_seq', { ascending: true })
     if (error) throw error;
     const flattened = data.map(item => {
