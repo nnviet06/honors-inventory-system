@@ -24,7 +24,7 @@ export const getAllEquipment = async (req: Request, res: Response) => {
     
     let query = supabase
       .from('equipment')
-      .select('*, locations(room_name, building_type)', { count: 'exact' })
+      .select('*, locations!inner(room_name, building_type)', { count: 'exact' }) // use !inner to ensure foreign table filter works 
       .eq('user_id', userId);
     // Apply filters based on query parameters
     if (search) {
