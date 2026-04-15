@@ -130,6 +130,7 @@ const EquipTable = ({ refreshKey, search, selectedType, selectedLocation }: Equi
           </table>
           <div className={styles.pagination}>
             <button
+              className={styles.paginationButton}
               disabled={currentPage === 1}
               onClick={() => setCurrentPage(currentPage - 1)}
             >
@@ -137,6 +138,7 @@ const EquipTable = ({ refreshKey, search, selectedType, selectedLocation }: Equi
             </button>
             <span>Page {currentPage} of {totalPages}</span>
             <button
+              className={styles.paginationButton}
               disabled={currentPage === totalPages}
               onClick={() => setCurrentPage(currentPage + 1)}
             >

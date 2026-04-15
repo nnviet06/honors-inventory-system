@@ -151,3 +151,13 @@ table th:last-child {
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+.paginationButton {
+  background-color: #006747;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+}
