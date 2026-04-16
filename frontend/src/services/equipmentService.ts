@@ -16,13 +16,26 @@ const getHeaders = (): Record<string, string> => {
     return headers;
 };
 
-export const getAllEquipment = async () => {
+export const getAllEquipment = async (
+    page: number = 1,
+    limit: number = 20, 
+    search?: string,
+    type?: string,
+    location?: string
+    ) => {
     
     try {
-      const response = await fetch(`${BASE_URL}/api/equipment`, {
-        headers: getHeaders(),
-      });
-      
+        const params = new URLSearchParams({
+            page: String(page),
+            limit: String(limit),
+        });
+        if (search) params.append('search', search);
+        if (type && type !== 'All') params.append('type', type);
+        if (location && location !== 'All') params.append('location', location);
+
+        const response = await fetch(`${BASE_URL}/api/equipment?${params}`, {
+            headers: getHeaders(),
+        });
       if (!response.ok) {
         throw new Error('Failed to fetch equipment');
       }
