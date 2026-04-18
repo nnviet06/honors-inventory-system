@@ -94,7 +94,7 @@ A chronological record of the development phases for the Honors Inventory System
 
 ---
 
-## Phase 5a: Guest Mode (Mar-Apr 2026) - [Issue #17](https://github.com/nnviet06/Honors-Inventory-System/issues/17)
+## Phase 5: Guest Mode (Mar-Apr 2026) - [Issue #17](https://github.com/nnviet06/Honors-Inventory-System/issues/17)
 
 **Problem:** Visitors couldn't try the app without creating an account.
 
@@ -105,3 +105,25 @@ A chronological record of the development phases for the Honors Inventory System
 - Guest accounts auto-seeded with 20 sample items via existing `seed_user_equipment()` function
 
 **Related PRs:** [#18](https://github.com/nnviet06/Honors-Inventory-System/pull/18)
+
+
+---
+
+## Phase 6a: Server-Side Pagination + Filtering (Apr 2026) — [Issue #19](https://github.com/nnviet06/Honors-Inventory-System/issues/19)
+
+**Problem:** Fetching all equipment on every page load doesn't scale, the client-side filter/search/render path becomes slow.
+
+**Solution:** Moved filtering, searching, and pagination to the backend.
+- Added pagination controls to the frontend with page size of 20
+- Added query params to `GET /api/equipment`: `page`, `limit`, `search`, `type`, `building`
+- Used Supabase `!inner` join syntax to filter equipment by fields on the `locations` foreign table (e.g. building code)
+
+**Key learning:** Supabase's Postgres client uses `!inner` on joined tables to apply `WHERE` conditions to the join, not just include the related data.
+
+**Related PRs:** [#22](https://github.com/nnviet06/Honors-Inventory-System/pull/22)
+
+---
+
+## Phase 6b: Stress-Test Seed + Caching (Apr 2026, in progress) — [Issue #20](https://github.com/nnviet06/Honors-Inventory-System/issues/20)
+
+**Goal:** Test application performance at scale and reduce database load on repeated reads.
