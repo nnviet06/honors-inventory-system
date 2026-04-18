@@ -70,6 +70,8 @@ This inventory system enables the Honors IT Team to:
 - **Delete Equipment** - Remove items from inventory
 - **Search & Filter** - Search equipment by model name and filter by type and building location
 - **Select All & Bulk Delete** - Checkbox selection with bulk delete for multiple items at once
+- **Guest Mode** - Demo access via temporary account
+- **Server-Side Pagination** - Paginated equipment list with per-page filtering, search, and sort (handles 2000+ items per user)
 
 ## Installation (if you want to test it out by yourself)
 
@@ -114,7 +116,9 @@ Get your credentials from [Supabase](https://supabase.com) → Project Settings 
 
 1. In Supabase dashboard, go to **SQL Editor**
 2. Run the contents of `database/schema.sql`
-3. Run the contents of `database/sample.sql` (locations only - equipment is auto-seeded per user on signup)
+3. Run the contents of `database/seed.sql` (locations only — equipment is auto-seeded per user on signup)
+4. Run each file in `database/migrations/` in numerical order (`001_` → `002_` → `003_`)
+5. (Optional) For stress testing, run `database/seed_2000.sql` to enable the `seed_user_equipment_large()` function
 ---
 
 ## How to Run
@@ -182,6 +186,6 @@ VITE v7.x.x ready in XXXms
 **If everything above checks out → Your system is ready**
 
 ## Future planning
-- Multiply the data size by many times.
-- Implement Redis caching.
+- Implement Redis caching layer for frequently-accessed queries (Issue #20)
+- Frontend enhancements: dark mode, responsive layout, sortable columns, loading skeletons, toast notifications, dashboard summary (Issue #21)
 
